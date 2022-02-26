@@ -3,10 +3,10 @@ library(dplyr)
 library(tidyverse)
 
 
-path = file.path( "matrimonio2020.sav")
+path = file.path( "matrimonio2012.sav")
 dataset = read_sav(path)
 
-
+View(dataset)
 
 residencia_hombre<-dataset[,'Nachom']
 group_by(dataset,residencia_hombre)
@@ -20,3 +20,5 @@ r<-dataset %>%
     tally()
 
 View(r)    
+
+
