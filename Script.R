@@ -6,6 +6,7 @@ library(magrittr)
 #Ordenamiento de la base de datos de matrimonio del ano 2016
 path = file.path( "matrimonio2016.sav")
 db2016 = read_sav(path)
+view(db2016)
 
 dep_reg<-db2016[,'DEPREG']
 mun_reg<-db2016[,'MUPREG']
