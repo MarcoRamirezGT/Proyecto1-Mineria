@@ -101,8 +101,8 @@ colnames(data2015)<-c('Departamento de registro','Municipio de registro','Mes de
 View(data2015)
 
 
-d2<-full_join(data2013, data2015)
-data13_15<-full_join(d2, data2014)
+d2<-full_join(data2013, data2014)
+data13_15<-full_join(d2, data2015)
 
 View(data13_15)
 
