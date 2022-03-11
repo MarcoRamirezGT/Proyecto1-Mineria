@@ -92,9 +92,11 @@ dia_ocu<-db2015[,'DIAOCU']
 mes_ocu<-db2015[,'MESOCU']
 ano_ocu<-db2015[,'AÑOOCU']
 
-str(ocup_M)
+ocup_Mf<-as.character(ocup_M)
+ocup_Ff<-as.character(ocup_F)
 
-data2015<-data.frame(dep_reg,mun_reg,mes_reg,ano_reg,clase_uni,edad_M,edad_F,et_M,et_F,nac_M,nac_F,esc_M,esc_F,ocup_M,ocup_F,dep_ocu,mun_ocu,dia_ocu,mes_ocu,ano_ocu)
+
+data2015<-data.frame(dep_reg,mun_reg,mes_reg,ano_reg,clase_uni,edad_M,edad_F,et_M,et_F,nac_M,nac_F,esc_M,esc_F,ocup_Mf,ocup_Ff,dep_ocu,mun_ocu,dia_ocu,mes_ocu,ano_ocu)
 colnames(data2015)<-c('Departamento de registro','Municipio de registro','Mes de registro','Año de registro','Clase de union','Edad del hombre','Edad de la mujer','Grupo etnico del hombre','Grupo etnico de la mujer','Nacionalidad del hombre','Nacionalidad de la mujer','Escolaridad del hombre','Escolaridad de la mujer','Ocupacion del hombre','Ocupacion de la mujer','Departamento de ocurrencia','Municipio de ocurrencia','Dia de ocurrencia','Mes de ocurrencia','Año de ocurrencia')
 View(data2015)
 
