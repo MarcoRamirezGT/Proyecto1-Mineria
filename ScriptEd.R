@@ -7,7 +7,6 @@ library(magrittr)
 path = file.path( "matrimonio2010.sav")
 db2010 = read_sav(path)
 
-view(db2010)
 
 dep_reg<-db2010[,'Depreg']
 mun_reg<-db2010[,'mupreg']
@@ -70,7 +69,6 @@ colnames(data2011)<-c('Departamento de registro','Municipio de registro','Mes de
 path = file.path( "matrimonio2012.sav")
 db2012 = read_sav(path)
 
-view(db2012)
 
 dep_reg<-db2012[,'DEPREG']
 mun_reg<-db2012[,'MUPREG']
@@ -101,4 +99,3 @@ colnames(data2012)<-c('Departamento de registro','Municipio de registro','Mes de
 d<-full_join(data2010, data2011)
 dd<-full_join(d, data2012)
 
-view(dd)

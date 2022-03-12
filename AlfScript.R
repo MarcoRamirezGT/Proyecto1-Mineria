@@ -3,7 +3,9 @@ library(dplyr)
 library(tidyverse)
 library(magrittr)
 library(plyr)
-
+library(rio)
+#install.packages("rio")
+#install_formats()
 #Ordenamiento de la base de datos de matrimonio del ano 2013
 path = file.path( "matrimonio2013.sav")
 db2013 = read_sav(path)
@@ -32,7 +34,7 @@ mes_ocu<-db2013[,'MESOCU']
 data2013<-data.frame(dep_reg,mun_reg,mes_reg,ano_reg,clase_uni,edad_M,edad_F,et_M,et_F,nac_M,nac_F,esc_M,esc_F,ocup_M,ocup_F,dep_ocu,mun_ocu,dia_ocu,mes_ocu)
 ocup_M %>% mutate(ocup_M=as.character(ocup_M))
 colnames(data2013)<-c('Departamento de registro','Municipio de registro','Mes de registro','Año de registro','Clase de union','Edad del hombre','Edad de la mujer','Grupo etnico del hombre','Grupo etnico de la mujer','Nacionalidad del hombre','Nacionalidad de la mujer','Escolaridad del hombre','Escolaridad de la mujer','Ocupacion del hombre','Ocupacion de la mujer','Departamento de ocurrencia','Municipio de ocurrencia','Dia de ocurrencia','Mes de ocurrencia')
-View(data2013)
+
 
 #Ordenamiento de la base de datos de matrimonio del ano 2014
 path = file.path("matrimonio2014.sav")
@@ -62,8 +64,6 @@ mes_ocu<-db2014[,'MESOCU']
 
 data2014<-data.frame(dep_reg, mun_reg, mes_reg, ano_reg, clase_uni, edad_M, edad_F, et_M, et_F, nac_M, nac_F, esc_M, esc_F, ocup_M, ocup_F, dep_ocu, mun_ocu, dia_ocu, mes_ocu)
 colnames(data2014)<-c('Departamento de registro','Municipio de registro','Mes de registro','Año de registro','Clase de union','Edad del hombre','Edad de la mujer','Grupo etnico del hombre','Grupo etnico de la mujer','Nacionalidad del hombre','Nacionalidad de la mujer','Escolaridad del hombre','Escolaridad de la mujer','Ocupacion del hombre','Ocupacion de la mujer','Departamento de ocurrencia','Municipio de ocurrencia','Dia de ocurrencia','Mes de ocurrencia')
-View(data2014)
-
 
 
 
@@ -90,7 +90,7 @@ dep_ocu<-db2015[,'DEPOCU']
 mun_ocu<-db2015[,'MUPOCU']
 dia_ocu<-db2015[,'DIAOCU']
 mes_ocu<-db2015[,'MESOCU']
-ano_ocu<-db2015[,'AÑOOCU']
+
 
 ocup_Mf<-as.character(ocup_M)
 ocup_Ff<-as.character(ocup_F)
@@ -98,26 +98,19 @@ ocup_Ff<-as.character(ocup_F)
 
 data2015<-data.frame(dep_reg,mun_reg,mes_reg,ano_reg,clase_uni,edad_M,edad_F,et_M,et_F,nac_M,nac_F,esc_M,esc_F,ocup_Mf,ocup_Ff,dep_ocu,mun_ocu,dia_ocu,mes_ocu,ano_ocu)
 colnames(data2015)<-c('Departamento de registro','Municipio de registro','Mes de registro','Año de registro','Clase de union','Edad del hombre','Edad de la mujer','Grupo etnico del hombre','Grupo etnico de la mujer','Nacionalidad del hombre','Nacionalidad de la mujer','Escolaridad del hombre','Escolaridad de la mujer','Ocupacion del hombre','Ocupacion de la mujer','Departamento de ocurrencia','Municipio de ocurrencia','Dia de ocurrencia','Mes de ocurrencia','Año de ocurrencia')
-View(data2015)
 
 
 d2<-full_join(data2013, data2014)
 data13_15<-full_join(d2, data2015)
 
-View(data13_15)
+#export(data13_15,"dataAlf.rdata")
+
+#saveRDS(data13_15, "db13_15.rds")
 
 
 
 
-
-
-
-
-
-
-
-
-
+#save(data13_15, file = "db1.RData")
 
 
 
