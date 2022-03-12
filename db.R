@@ -405,6 +405,12 @@ data16_18<-full_join(d2,data2017)
 #data19_20
 #data16_18
 
+nrow(data13_15)
+nrow(dd)
+nrow(data19_20)
+nrow(data16_18)
+
+
 
 data16_18$`Ocupacion del hombre`<-as.character(data16_18$`Ocupacion del hombre`) 
 data16_18$`Ocupacion de la mujer`<-as.character(data16_18$`Ocupacion de la mujer`) 
@@ -416,7 +422,7 @@ data19_20$`Ocupacion de la mujer`<-as.character(data19_20$`Ocupacion de la mujer
 dataMega<- full_join(data13_15, data16_18)
 dataMega2<-full_join(dd,data19_20)
 dataMegaFinal<-full_join(dataMega,dataMega2)
-
+nrow(dataMegaFinal)
 #save(dataMegaFinal, file = "db10_20.RData")
 
 
