@@ -1,7 +1,28 @@
+---
+title: "InformeProyecto1"
+author: "Marco Ramirez, Alfredo Quezada, Estuardo Hernandez, Eduardo Ramírez"
+date: "20/3/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
-
 db <- readRDS("db10_20.rds")
+```
 
+## Informe Proyecto 1
+
+La base de datos que utilizamos fue la de matrimonios, proporcionado por el instituto nacional de estadistica (INE). Esta cuenta con las siguientes variables.
+**`r names(db)`**. Las cuales se poseen las siguientes variables numericas y categoricas
+
+
+### Analisis Exploratorio
+
+
+#### Promedio de edad por año al momento de contraer matrimonio
+
+```{r include=FALSE}
 
 #Edad promedio de las personas al casarse
 summary(db$`Edad de la mujer`)
@@ -100,9 +121,8 @@ ask1$Año<-as.factor(ask1$Año)
 pregunta1<-ggplot(data=ask1, aes(x=Año, y=EdadPromedio, fill=Sexo)) +
   geom_bar(stat="identity", position=position_dodge())+
   geom_text(aes(label=EdadPromedio), vjust=1.6, color="black",
-            position = position_dodge(0.9), size=3.5)
-  
-pregunta1
+            position = position_dodge(0.9), size=3.5)+labs(title="Edad promedio por año al contraer matrimonio", y="Edad ")
+ 
 #Matrimonios atipicos
 
 edadPareja<-subset(db, select=c('Edad del hombre','Edad de la mujer'),db$`Edad de la mujer`!=999 & db$`Edad del hombre`!=999)
@@ -189,7 +209,7 @@ pregunta4<-ggplot(data=bodasMenores, aes(x=Año_Registrado, y=Cantidad_Matrimoni
   geom_bar(stat="identity", position=position_dodge())+
   geom_text(aes(label=Cantidad_Matrimonios), vjust=1.6, color="black",
             position = position_dodge(0.9), size=3.5)+
-  labs(title="Cantidad de matrimonios con menores de edad por año",x='Año de registro' ,y="Cantidad de matrimonios ")+
+  labs(title="Cantidad de matrimonios entre menores de edad",x='Año de registro' ,y="Cantidad de matrimonios ")+
   theme(legend.position="none")
 
 #Matrimonio donde almenos uno es menor de edad
@@ -239,3 +259,70 @@ pregunta6<-ggplot(ask4, aes(x = "", y = Porcentaje, fill = EdadesPareja)) +
              show.legend = FALSE) +
   coord_polar(theta = "y")+theme(legend.position = "bottom")+
   labs(title="Porcentaje de matrimonios donde uno es menor de edad")
+
+```
+
+
+```{r}
+pregunta1
+
+```
+\n \n \n 
+Tal como se observa en la grafica anterior la edad promedio del hombre al contraer matrimonio es de **29**, mientras que la de la mujer es de **26**, cabe mencionar que en los ultimos años se demostro que las personas se estan casando a una edad mayor que antes, , tal como se observa en el año 2011, donde se ve que la edad de la mujer y del hombre es menor al resto de años. Esto puede ser debido al cambio de mentalidad de las personas, ya que la idea de contraer matrimonio a temprana edad va desapareciendo. 
+
+#### Moda de las edades de las parejas en los 10 años de registro
+
+```{r}
+
+pregunta2
+```
+\n \n \n 
+La grafica anterior demuestra la moda de las edades de las parejas al contraer matrimonio, demostrando que la de edad de **21** años para hombre y **19** años para mujer es la mas habitual para unir lazos, se registro **8949** matrimonios cuando el hombre tiene **21** años y la mujer **19**, ademas que en segundo puesto se encuentra cuando el hombre tiene **20** y su pareja **19**.
+
+#### Matrimonio entre menores de edad
+
+```{r}
+pregunta3
+```
+
+Segun el analisis realizado en la base de datos, se encontro que, ha habido una cantidad total de **`r cantidad`** matrimonios realizados entre dos personas menores de edad durante el año 2010 a 2020. Sin embargo, segun el articulo 84, del codigo civil, expone lo siguiente, *“Artículo 84. Prohibición de contraer matrimonio. No podrán contraer matrimonio ni autorizarse de manera alguna, el matrimonio de menores de dieciséis (16) años de edad.”*
+```{r}
+#Resumen de la edad de la mujer
+summary(replace(db$`Edad de la mujer`, db$`Edad de la mujer`==999, NA), na.rm = TRUE)
+
+
+
+```
+No obstante, se demostro que existen muchos matrimonios entre menores de edad, e incluso encontrando que la edad minima de las mujeres fue de **10** años. 
+
+
+
+```{r}
+#Resumen hombre
+summary(replace(db$`Edad del hombre`, db$`Edad del hombre`==999, NA), na.rm = TRUE)
+```
+y **12** años para hombres, evidenciando que no se comple con esta ley. 
+Durante el año 2017 el gobierno de Guatemala implemento una nueva ley el cual aumentaba la edad para contraer matrimonio de manera legal, cambiando de 16 años a 18 años, y este fue el resultado de ese cambio. 
+
+```{r}
+pregunta4
+
+```
+
+El cual demuestra que en el año **2010** hubo una cantidad de **`r bodasMenores$Cantidad_Matrimonios[1] `** matrimonios entre menores de edad, luego en el año **2011** hubo una cantidad de **`r bodasMenores$Cantidad_Matrimonios[2] `**, y que ademas se demuestra que han ido reduciendo los matrimonios de este tipo a traves de los años, donde los ultimos años no se ha registrado matrimonios entre menores de edad, sin embargo, esto no significa que ya no existan este tipo de uniones, ya que muchas pueden realizarse de manera no juridica. 
+
+#### Matrimonios donde al menos uno es menor de edad
+
+```{r}
+
+pregunta5
+```
+
+La grafica anterior demuestra que ha habido una cantidad de **`r edadParejaAlMenosUnMenorCantidad`** matrimonios donde al menos uno de la relacion es menor de edad. Nuevamente evidenciando el incumplimiento de la ley, ademas cabe mencionar que una gran parte de este es cuando el Hombre es mayor que la mujer.
+
+```{r}
+pregunta6
+
+```
+
+Tal como se observa del **100%** de los matrimonios donde exista algun menor el **88.66%** es cuando el la mujer es menor de edad y el hombre es mayor que ella, el **7.68%** es cuando el hombre es menor de edad y el **3.67%** cuando ambos individuos comparten la misma edad y tambien son menores de edad.
