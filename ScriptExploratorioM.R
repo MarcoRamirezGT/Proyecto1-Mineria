@@ -104,8 +104,9 @@ pregunta1<-ggplot(data=ask1, aes(x=Año, y=EdadPromedio, fill=Sexo)) +
   
 pregunta1
 #Matrimonios atipicos
+db$`Escolaridad de la mujer`
 
-edadPareja<-subset(db, select=c('Edad del hombre','Edad de la mujer'),db$`Edad de la mujer`!=999 & db$`Edad del hombre`!=999)
+edadPareja<-subset(db, select=c('Edad del hombre','Edad de la mujer','Escolaridad del hombre','Escolaridad de la mujer'),db$`Edad de la mujer`!=999 & db$`Edad del hombre`!=999)
 
 edadPareja$Juntos <- NA
 edadPareja$Juntos<-paste(edadPareja$`Edad del hombre`,edadPareja$`Edad de la mujer`)
@@ -194,8 +195,10 @@ pregunta4<-ggplot(data=bodasMenores, aes(x=Año_Registrado, y=Cantidad_Matrimoni
 
 #Matrimonio donde almenos uno es menor de edad
 
-edadParejaAlMenosUnMenor<-subset(edadPareja, select=c('Edad del hombre','Edad de la mujer'),edadPareja$`Edad de la mujer`<18 | edadPareja$`Edad del hombre`<18)
+edadParejaAlMenosUnMenor<-subset(edadPareja, select=c('Edad del hombre','Edad de la mujer','Escolaridad del hombre','Escolaridad de la mujer'),edadPareja$`Edad de la mujer`<18 | edadPareja$`Edad del hombre`<18)
 edadParejaAlMenosUnMenorCantidad<-nrow(edadParejaAlMenosUnMenor)
+
+View(edadParejaAlMenosUnMenor)
 
 pregunta5<-ggplot(data=edadParejaAlMenosUnMenor, aes(x='Matrimonio', y=edadParejaAlMenosUnMenorCantidad, fill=edadParejaAlMenosUnMenorCantidad)) +
   geom_bar(stat="identity", position=position_dodge())+
@@ -203,6 +206,34 @@ pregunta5<-ggplot(data=edadParejaAlMenosUnMenor, aes(x='Matrimonio', y=edadParej
             position = position_dodge(0.9), size=3.5)+
   labs(title="Cantidad de matrimonios con un menor de edad", y="Cantidad de matrimonios ")+
   theme(legend.position="none")
+
+EscoH<-edadParejaAlMenosUnMenor %>%
+  group_by(`Escolaridad del hombre`) %>%
+  tally()
+
+
+EscoM<-edadParejaAlMenosUnMenor %>%
+  group_by(`Escolaridad de la mujer`) %>%
+  tally()
+
+
+EscolaridadHombre<-c(EscoH$`Escolaridad del hombre`)
+CantidadEscolaridadHombre<-c(EscoH$n)
+
+EscoH<-data.frame(EscolaridadHombre,CantidadEscolaridadHombre)
+
+
+
+EscoH$EscolaridadHombre<-as.factor(EscoH$EscolaridadHombre)
+
+
+PreguntaEscolaridad<-ggplot(data=EscoH, aes(x=EscolaridadHombre, y=CantidadEscolaridadHombre,fill=EscolaridadHombre)) +
+  geom_bar(stat="identity", position=position_dodge())+
+  geom_text(aes(label=CantidadEscolaridadHombre), vjust=1.6, color="black",
+            position = position_dodge(0.9), size=3.5)+
+  labs(title="Escolaridad de los hombres con matrimonio", y="Cantidad de matrimonios ")+
+  theme(legend.position="none")
+
 
 
 
