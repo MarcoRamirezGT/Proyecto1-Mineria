@@ -24,7 +24,6 @@ La base de datos que utilizamos fue la de matrimonios, proporcionado por el inst
 
 ```{r include=FALSE}
 
-
 #Edad promedio de las personas al casarse
 summary(db$`Edad de la mujer`)
 mean(db$`Edad de la mujer`)
@@ -216,11 +215,11 @@ pregunta4<-ggplot(data=bodasMenores, aes(x=Año_Registrado, y=Cantidad_Matrimoni
   theme(legend.position="none")
 
 #Matrimonio donde almenos uno es menor de edad
-View(db)
+
 edadParejaAlMenosUnMenor<-subset(edadPareja, select=c('Edad del hombre','Edad de la mujer','Escolaridad del hombre','Escolaridad de la mujer'),edadPareja$`Edad de la mujer`<18 | edadPareja$`Edad del hombre`<18)
 edadParejaAlMenosUnMenorCantidad<-nrow(edadParejaAlMenosUnMenor)
 
-View(edadParejaAlMenosUnMenor)
+
 
 pregunta5<-ggplot(data=edadParejaAlMenosUnMenor, aes(x='Matrimonio', y=edadParejaAlMenosUnMenorCantidad, fill=edadParejaAlMenosUnMenorCantidad)) +
   geom_bar(stat="identity", position=position_dodge())+
@@ -306,7 +305,6 @@ pregunta6<-ggplot(ask4, aes(x = "", y = Porcentaje, fill = EdadesPareja)) +
              show.legend = FALSE) +
   coord_polar(theta = "y")+theme(legend.position = "bottom")+
   labs(title="Porcentaje de matrimonios donde uno es menor de edad")
-
 
 ```
 
