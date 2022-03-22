@@ -16,9 +16,6 @@ CantidadMa<-c(nde$x)
 df<-data.frame(Departamento,CantidadMa)
 
 
-View(nde)
-
-View(df)
 df$Departamento<-as.factor(df$Departamento)
 
 pregunta1<-ggplot(data=df, aes(x=Departamento , y=CantidadMa,fill=CantidadMa)) +
