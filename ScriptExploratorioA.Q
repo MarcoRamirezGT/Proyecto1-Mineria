@@ -8,12 +8,16 @@ View(db)
 dep<-db[,'Departamento de ocurrencia']
 
 depocu<-subset(dep, select=c('Departamento de ocurrencia'),db$`Departamento de ocurrencia` != 0)
+
 dep1<-data.frame(depocu)
 nde<-aggregate(dep1$dep, dep1, length)
 
 Departamento<-c(nde$depocu)
 CantidadMa<-c(nde$x)
-df<-data.frame(Departamento,CantidadMa)
+# df<-data.frame(Departamento,CantidadMa)
+# dtw<-dep1 %>%
+#   group_by(dep1$depocu) %>%
+#   tally()
 
 
 df$Departamento<-as.factor(df$Departamento)
