@@ -197,7 +197,7 @@ pregunta4<-ggplot(data=bodasMenores, aes(x=Año_Registrado, y=Cantidad_Matrimoni
 edadParejaAlMenosUnMenor<-subset(edadPareja, select=c('Edad del hombre','Edad de la mujer','Escolaridad del hombre','Escolaridad de la mujer'),edadPareja$`Edad de la mujer`<18 | edadPareja$`Edad del hombre`<18)
 edadParejaAlMenosUnMenorCantidad<-nrow(edadParejaAlMenosUnMenor)
 
-View(edadParejaAlMenosUnMenor)
+
 
 pregunta5<-ggplot(data=edadParejaAlMenosUnMenor, aes(x='Matrimonio', y=edadParejaAlMenosUnMenorCantidad, fill=edadParejaAlMenosUnMenorCantidad)) +
   geom_bar(stat="identity", position=position_dodge())+
@@ -220,10 +220,16 @@ EscolaridadHombre<-c(EscoH$`Escolaridad del hombre`)
 CantidadEscolaridadHombre<-c(EscoH$n)
 
 EscoH<-data.frame(EscolaridadHombre,CantidadEscolaridadHombre)
-
-
-
 EscoH$EscolaridadHombre<-as.factor(EscoH$EscolaridadHombre)
+
+EscolaridadMujer<-c(EscoM$`Escolaridad de la mujer`)
+CantidadEscolaridadMujer<-c(EscoM$n)
+
+EscoM<-data.frame(EscolaridadMujer,CantidadEscolaridadMujer)
+EscoM$EscolaridadMujer<-as.factor(EscoM$EscolaridadMujer)
+
+
+
 
 
 PreguntaEscolaridad<-ggplot(data=EscoH, aes(x=EscolaridadHombre, y=CantidadEscolaridadHombre,fill=EscolaridadHombre)) +
@@ -232,6 +238,14 @@ PreguntaEscolaridad<-ggplot(data=EscoH, aes(x=EscolaridadHombre, y=CantidadEscol
             position = position_dodge(0.9), size=3.5)+
   labs(title="Escolaridad de los hombres con matrimonio", y="Cantidad de matrimonios ")+
   theme(legend.position="none")
+
+PreguntaEscolaridadMujer<-ggplot(data=EscoM, aes(x=EscolaridadMujer, y=CantidadEscolaridadMujer,fill=EscolaridadMujer)) +
+  geom_bar(stat="identity", position=position_dodge())+
+  geom_text(aes(label=CantidadEscolaridadMujer), vjust=1.6, color="black",
+            position = position_dodge(0.9), size=3.5)+
+  labs(title="Escolaridad de las mujeres", y="Cantidad")+
+  theme(legend.position="none")
+
 
 
 

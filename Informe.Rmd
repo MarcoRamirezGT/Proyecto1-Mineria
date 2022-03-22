@@ -121,11 +121,13 @@ ask1$Año<-as.factor(ask1$Año)
 pregunta1<-ggplot(data=ask1, aes(x=Año, y=EdadPromedio, fill=Sexo)) +
   geom_bar(stat="identity", position=position_dodge())+
   geom_text(aes(label=EdadPromedio), vjust=1.6, color="black",
-            position = position_dodge(0.9), size=3.5)+labs(title="Edad promedio por año al contraer matrimonio", y="Edad ")
- 
+            position = position_dodge(0.9), size=3.5)
+  
+pregunta1
 #Matrimonios atipicos
+db$`Escolaridad de la mujer`
 
-edadPareja<-subset(db, select=c('Edad del hombre','Edad de la mujer'),db$`Edad de la mujer`!=999 & db$`Edad del hombre`!=999)
+edadPareja<-subset(db, select=c('Edad del hombre','Edad de la mujer','Escolaridad del hombre','Escolaridad de la mujer'),db$`Edad de la mujer`!=999 & db$`Edad del hombre`!=999)
 
 edadPareja$Juntos <- NA
 edadPareja$Juntos<-paste(edadPareja$`Edad del hombre`,edadPareja$`Edad de la mujer`)
@@ -209,13 +211,15 @@ pregunta4<-ggplot(data=bodasMenores, aes(x=Año_Registrado, y=Cantidad_Matrimoni
   geom_bar(stat="identity", position=position_dodge())+
   geom_text(aes(label=Cantidad_Matrimonios), vjust=1.6, color="black",
             position = position_dodge(0.9), size=3.5)+
-  labs(title="Cantidad de matrimonios entre menores de edad",x='Año de registro' ,y="Cantidad de matrimonios ")+
+  labs(title="Cantidad de matrimonios con menores de edad por año",x='Año de registro' ,y="Cantidad de matrimonios ")+
   theme(legend.position="none")
 
 #Matrimonio donde almenos uno es menor de edad
 
-edadParejaAlMenosUnMenor<-subset(edadPareja, select=c('Edad del hombre','Edad de la mujer'),edadPareja$`Edad de la mujer`<18 | edadPareja$`Edad del hombre`<18)
+edadParejaAlMenosUnMenor<-subset(edadPareja, select=c('Edad del hombre','Edad de la mujer','Escolaridad del hombre','Escolaridad de la mujer'),edadPareja$`Edad de la mujer`<18 | edadPareja$`Edad del hombre`<18)
 edadParejaAlMenosUnMenorCantidad<-nrow(edadParejaAlMenosUnMenor)
+
+
 
 pregunta5<-ggplot(data=edadParejaAlMenosUnMenor, aes(x='Matrimonio', y=edadParejaAlMenosUnMenorCantidad, fill=edadParejaAlMenosUnMenorCantidad)) +
   geom_bar(stat="identity", position=position_dodge())+
@@ -223,6 +227,48 @@ pregunta5<-ggplot(data=edadParejaAlMenosUnMenor, aes(x='Matrimonio', y=edadParej
             position = position_dodge(0.9), size=3.5)+
   labs(title="Cantidad de matrimonios con un menor de edad", y="Cantidad de matrimonios ")+
   theme(legend.position="none")
+
+EscoH<-edadParejaAlMenosUnMenor %>%
+  group_by(`Escolaridad del hombre`) %>%
+  tally()
+
+
+EscoM<-edadParejaAlMenosUnMenor %>%
+  group_by(`Escolaridad de la mujer`) %>%
+  tally()
+
+
+EscolaridadHombre<-c(EscoH$`Escolaridad del hombre`)
+CantidadEscolaridadHombre<-c(EscoH$n)
+
+EscoH<-data.frame(EscolaridadHombre,CantidadEscolaridadHombre)
+EscoH$EscolaridadHombre<-as.factor(EscoH$EscolaridadHombre)
+
+EscolaridadMujer<-c(EscoM$`Escolaridad de la mujer`)
+CantidadEscolaridadMujer<-c(EscoM$n)
+
+EscoM<-data.frame(EscolaridadMujer,CantidadEscolaridadMujer)
+EscoM$EscolaridadMujer<-as.factor(EscoM$EscolaridadMujer)
+
+
+
+
+
+PreguntaEscolaridad<-ggplot(data=EscoH, aes(x=EscolaridadHombre, y=CantidadEscolaridadHombre,fill=EscolaridadHombre)) +
+  geom_bar(stat="identity", position=position_dodge())+
+  geom_text(aes(label=CantidadEscolaridadHombre), vjust=1.6, color="black",
+            position = position_dodge(0.9), size=3.5)+
+  labs(title="Escolaridad de los hombres con matrimonio", y="Cantidad de matrimonios ")+
+  theme(legend.position="none")
+
+PreguntaEscolaridadMujer<-ggplot(data=EscoM, aes(x=EscolaridadMujer, y=CantidadEscolaridadMujer,fill=EscolaridadMujer)) +
+  geom_bar(stat="identity", position=position_dodge())+
+  geom_text(aes(label=CantidadEscolaridadMujer), vjust=1.6, color="black",
+            position = position_dodge(0.9), size=3.5)+
+  labs(title="Escolaridad de las mujeres", y="Cantidad")+
+  theme(legend.position="none")
+
+
 
 
 
@@ -267,8 +313,8 @@ pregunta6<-ggplot(ask4, aes(x = "", y = Porcentaje, fill = EdadesPareja)) +
 pregunta1
 
 ```
-\n \n \n 
-Tal como se observa en la grafica anterior la edad promedio del hombre al contraer matrimonio es de **29**, mientras que la de la mujer es de **26**, cabe mencionar que en los ultimos años se demostro que las personas se estan casando a una edad mayor que antes, , tal como se observa en el año 2011, donde se ve que la edad de la mujer y del hombre es menor al resto de años. Esto puede ser debido al cambio de mentalidad de las personas, ya que la idea de contraer matrimonio a temprana edad va desapareciendo. 
+\n \n \n
+   Tal como se observa en la grafica anterior la edad promedio del hombre al contraer matrimonio es de **29**, mientras que la de la mujer es de **26**, cabe mencionar que en los ultimos años se demostro que las personas se estan casando a una edad mayor que antes, , tal como se observa en el año 2011, donde se ve que la edad de la mujer y del hombre es menor al resto de años. Esto puede ser debido al cambio de mentalidad de las personas, ya que la idea de contraer matrimonio a temprana edad va desapareciendo. 
 
 #### Moda de las edades de las parejas en los 10 años de registro
 
@@ -326,3 +372,32 @@ pregunta6
 ```
 
 Tal como se observa del **100%** de los matrimonios donde exista algun menor el **88.66%** es cuando el la mujer es menor de edad y el hombre es mayor que ella, el **7.68%** es cuando el hombre es menor de edad y el **3.67%** cuando ambos individuos comparten la misma edad y tambien son menores de edad.
+
+```{r}
+
+PreguntaEscolaridad
+```
+
+Como se observa en la grafica se demuestra los hombres casados tienen el siguiente grado academico:
+**1 = No posee ninguna educacion con una cantidad de 14214**
+**2 = Educacion Primaria con una cantidad de 24710 **
+**3 = Basico con una cantidad de 11944**
+**4 = Diversificado con una cantidad de 8684**
+**5 = Universitario con una cantidad de 268**
+**6 = Postgrado con una cantidad de 1**
+**9 = Ignorado con una cantidad de 9673**
+
+```{r}
+PreguntaEscolaridadMujer
+
+```
+Como se observa en la grafica se demuestra los hombres casados  tienen el siguiente grado academico:
+**1 = No posee ninguna educacion con una cantidad de 30497**
+**2 = Educacion Primaria con una cantidad de 9988 **
+**3 = Basico con una cantidad de 2544**
+**4 = Diversificado con una cantidad de 956**
+**5 = Universitario con una cantidad de 13**
+**6 = Postgrado con una cantidad de 0**
+**9 = Ignorado con una cantidad de 25496**
+
+
