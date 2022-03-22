@@ -194,7 +194,7 @@ pregunta4<-ggplot(data=bodasMenores, aes(x=Año_Registrado, y=Cantidad_Matrimoni
   theme(legend.position="none")
 
 #Matrimonio donde almenos uno es menor de edad
-
+View(db)
 edadParejaAlMenosUnMenor<-subset(edadPareja, select=c('Edad del hombre','Edad de la mujer','Escolaridad del hombre','Escolaridad de la mujer'),edadPareja$`Edad de la mujer`<18 | edadPareja$`Edad del hombre`<18)
 edadParejaAlMenosUnMenorCantidad<-nrow(edadParejaAlMenosUnMenor)
 

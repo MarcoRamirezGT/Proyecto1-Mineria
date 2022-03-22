@@ -267,8 +267,8 @@ pregunta6<-ggplot(ask4, aes(x = "", y = Porcentaje, fill = EdadesPareja)) +
 pregunta1
 
 ```
-\n \n \n 
-Tal como se observa en la grafica anterior la edad promedio del hombre al contraer matrimonio es de **29**, mientras que la de la mujer es de **26**, cabe mencionar que en los ultimos años se demostro que las personas se estan casando a una edad mayor que antes, , tal como se observa en el año 2011, donde se ve que la edad de la mujer y del hombre es menor al resto de años. Esto puede ser debido al cambio de mentalidad de las personas, ya que la idea de contraer matrimonio a temprana edad va desapareciendo. 
+\n \n \n
+   Tal como se observa en la grafica anterior la edad promedio del hombre al contraer matrimonio es de **29**, mientras que la de la mujer es de **26**, cabe mencionar que en los ultimos años se demostro que las personas se estan casando a una edad mayor que antes, , tal como se observa en el año 2011, donde se ve que la edad de la mujer y del hombre es menor al resto de años. Esto puede ser debido al cambio de mentalidad de las personas, ya que la idea de contraer matrimonio a temprana edad va desapareciendo. 
 
 #### Moda de las edades de las parejas en los 10 años de registro
 
