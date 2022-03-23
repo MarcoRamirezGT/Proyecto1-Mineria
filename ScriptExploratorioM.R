@@ -2,7 +2,6 @@ library(tidyverse)
 
 db <- readRDS("db10_20.rds")
 
-
 #Edad promedio de las personas al casarse
 summary(db$`Edad de la mujer`)
 mean(db$`Edad de la mujer`)
