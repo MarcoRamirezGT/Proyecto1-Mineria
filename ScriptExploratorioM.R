@@ -231,6 +231,8 @@ EscoM$EscolaridadMujer<-as.factor(EscoM$EscolaridadMujer)
 
 
 
+EscoH[1]<-c('Ninguno','Primaria','Basico','Diversificado','Universitario','Postgrado','Ignorado')
+EscoM[1]<-c('Ninguno','Primaria','Basico','Diversificado','Universitario','Ignorado')
 
 PreguntaEscolaridad<-ggplot(data=EscoH, aes(x=EscolaridadHombre, y=CantidadEscolaridadHombre,fill=EscolaridadHombre)) +
   geom_bar(stat="identity", position=position_dodge())+
@@ -239,14 +241,39 @@ PreguntaEscolaridad<-ggplot(data=EscoH, aes(x=EscolaridadHombre, y=CantidadEscol
   labs(title="Escolaridad de los hombres con matrimonio", y="Cantidad de matrimonios ")+
   theme(legend.position="none")
 
+#Pie chart
+pd<-round(((CantidadEscolaridadHombre*100)/sum(EscoH$CantidadEscolaridadHombre)),digits = 2)
+
+
+pieEscH<-ggplot(EscoH, aes(x = "", y = pd, fill = EscolaridadHombre)) +
+  geom_col(color = "black") +
+  geom_label(aes(label = pd),
+             position = position_stack(vjust = 0.5),
+             show.legend = FALSE) +
+  coord_polar(theta = "y")+theme(legend.position = "bottom")+
+  labs(title="Porcentaje de escolaridad de los hombres")
+#Mujer
+
+
+
 PreguntaEscolaridadMujer<-ggplot(data=EscoM, aes(x=EscolaridadMujer, y=CantidadEscolaridadMujer,fill=EscolaridadMujer)) +
   geom_bar(stat="identity", position=position_dodge())+
   geom_text(aes(label=CantidadEscolaridadMujer), vjust=1.6, color="black",
             position = position_dodge(0.9), size=3.5)+
   labs(title="Escolaridad de las mujeres", y="Cantidad")+
   theme(legend.position="none")
+#Pie chart
+
+pdM<-round(((CantidadEscolaridadMujer*100)/sum(EscoM$CantidadEscolaridadMujer)),digits = 2)
 
 
+pieEscM<-ggplot(EscoM, aes(x = "", y = pdM, fill = EscolaridadMujer)) +
+  geom_col(color = "black") +
+  geom_label(aes(label = pdM),
+             position = position_stack(vjust = 0.5),
+             show.legend = FALSE) +
+  coord_polar(theta = "y")+theme(legend.position = "bottom")+
+  labs(title="Porcentaje de escolaridad de los hombres")
 
 
 

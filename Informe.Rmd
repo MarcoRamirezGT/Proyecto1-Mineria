@@ -24,6 +24,8 @@ La base de datos que utilizamos fue la de matrimonios, proporcionado por el inst
 
 ```{r include=FALSE}
 
+
+
 #Edad promedio de las personas al casarse
 summary(db$`Edad de la mujer`)
 mean(db$`Edad de la mujer`)
@@ -253,6 +255,8 @@ EscoM$EscolaridadMujer<-as.factor(EscoM$EscolaridadMujer)
 
 
 
+EscoH[1]<-c('Ninguno','Primaria','Basico','Diversificado','Universitario','Postgrado','Ignorado')
+EscoM[1]<-c('Ninguno','Primaria','Basico','Diversificado','Universitario','Ignorado')
 
 PreguntaEscolaridad<-ggplot(data=EscoH, aes(x=EscolaridadHombre, y=CantidadEscolaridadHombre,fill=EscolaridadHombre)) +
   geom_bar(stat="identity", position=position_dodge())+
@@ -261,14 +265,39 @@ PreguntaEscolaridad<-ggplot(data=EscoH, aes(x=EscolaridadHombre, y=CantidadEscol
   labs(title="Escolaridad de los hombres con matrimonio", y="Cantidad de matrimonios ")+
   theme(legend.position="none")
 
+#Pie chart
+pd<-round(((CantidadEscolaridadHombre*100)/sum(EscoH$CantidadEscolaridadHombre)),digits = 2)
+
+
+pieEscH<-ggplot(EscoH, aes(x = "", y = pd, fill = EscolaridadHombre)) +
+  geom_col(color = "black") +
+  geom_label(aes(label = pd),
+             position = position_stack(vjust = 0.5),
+             show.legend = FALSE) +
+  coord_polar(theta = "y")+theme(legend.position = "bottom")+
+  labs(title="Porcentaje de escolaridad de los hombres")
+#Mujer
+
+
+
 PreguntaEscolaridadMujer<-ggplot(data=EscoM, aes(x=EscolaridadMujer, y=CantidadEscolaridadMujer,fill=EscolaridadMujer)) +
   geom_bar(stat="identity", position=position_dodge())+
   geom_text(aes(label=CantidadEscolaridadMujer), vjust=1.6, color="black",
             position = position_dodge(0.9), size=3.5)+
   labs(title="Escolaridad de las mujeres", y="Cantidad")+
   theme(legend.position="none")
+#Pie chart
+
+pdM<-round(((CantidadEscolaridadMujer*100)/sum(EscoM$CantidadEscolaridadMujer)),digits = 2)
 
 
+pieEscM<-ggplot(EscoM, aes(x = "", y = pdM, fill = EscolaridadMujer)) +
+  geom_col(color = "black") +
+  geom_label(aes(label = pdM),
+             position = position_stack(vjust = 0.5),
+             show.legend = FALSE) +
+  coord_polar(theta = "y")+theme(legend.position = "bottom")+
+  labs(title="Porcentaje de escolaridad de los hombres")
 
 
 
@@ -305,6 +334,7 @@ pregunta6<-ggplot(ask4, aes(x = "", y = Porcentaje, fill = EdadesPareja)) +
              show.legend = FALSE) +
   coord_polar(theta = "y")+theme(legend.position = "bottom")+
   labs(title="Porcentaje de matrimonios donde uno es menor de edad")
+
 
 ```
 
@@ -378,28 +408,40 @@ Tal como se observa del **100%** de los matrimonios donde exista algun menor el 
 PreguntaEscolaridad
 ```
 
-Como se observa en la grafica se demuestra los hombres casados tienen el siguiente grado academico:
-**1 = No posee ninguna educacion con una cantidad de 14214**
-**2 = Educacion Primaria con una cantidad de 24710 **
-**3 = Basico con una cantidad de 11944**
-**4 = Diversificado con una cantidad de 8684**
-**5 = Universitario con una cantidad de 268**
-**6 = Postgrado con una cantidad de 1**
-**9 = Ignorado con una cantidad de 9673**
+Como se observa en la grafica se demuestra los hombres casados tienen el siguiente grado academico: \n  
+
+*  **1 = No posee ninguna educacion con una cantidad de 14214**  
+*  **2 = Educacion Primaria con una cantidad de 24710 **  
+*  **3 = Basico con una cantidad de 11944**  
+*  **4 = Diversificado con una cantidad de 8684**  
+*  **5 = Universitario con una cantidad de 268**  
++  **6 = Postgrado con una cantidad de 1**  
+*  **9 = Ignorado con una cantidad de 9673**  
+
+Viendo en una grafica de pie
+```{r}
+pieEscH
+```
+Se observa que el grado con mayor porcentaje es primaria y siguiendole ninguno. Ahora enfocandonos en el sexo femenino se obtuvo lo siguiente  
 
 ```{r}
 PreguntaEscolaridadMujer
 
 ```
-Como se observa en la grafica se demuestra los hombres casados  tienen el siguiente grado academico:
-**1 = No posee ninguna educacion con una cantidad de 30497**
-**2 = Educacion Primaria con una cantidad de 9988 **
-**3 = Basico con una cantidad de 2544**
-**4 = Diversificado con una cantidad de 956**
-**5 = Universitario con una cantidad de 13**
-**6 = Postgrado con una cantidad de 0**
-**9 = Ignorado con una cantidad de 25496**
+Como se observa en la grafica se demuestra los hombres casados  tienen el siguiente grado academico:   
+\n
+* **1 = No posee ninguna educacion con una cantidad de 30497**  
+* **2 = Educacion Primaria con una cantidad de 9988 **  
+* **3 = Basico con una cantidad de 2544**  
+* **4 = Diversificado con una cantidad de 956**  
+* **5 = Universitario con una cantidad de 13**  
+* **6 = Postgrado con una cantidad de 0**  
+* **9 = Ignorado con una cantidad de 25496**  
 
+
+```{r}
+pieEscM
+```
 
 ```{r include=FALSE}
 # Pregunta 1: Cual es el departamento con mas bodas?
