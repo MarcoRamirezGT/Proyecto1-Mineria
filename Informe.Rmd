@@ -297,7 +297,7 @@ pieEscM<-ggplot(EscoM, aes(x = "", y = pdM, fill = EscolaridadMujer)) +
              position = position_stack(vjust = 0.5),
              show.legend = FALSE) +
   coord_polar(theta = "y")+theme(legend.position = "bottom")+
-  labs(title="Porcentaje de escolaridad de los hombres")
+  labs(title="Porcentaje de escolaridad de los mujeres")
 
 
 
@@ -401,7 +401,7 @@ pregunta6
 
 ```
 
-Tal como se observa del **100%** de los matrimonios donde exista algun menor el **88.66%** es cuando el la mujer es menor de edad y el hombre es mayor que ella, el **7.68%** es cuando el hombre es menor de edad y el **3.67%** cuando ambos individuos comparten la misma edad y tambien son menores de edad.
+Tal como se observa del **100%** de los matrimonios donde exista algun menor el **88.66%** es cuando la mujer es menor de edad y el hombre es mayor que ella, el **7.68%** es cuando el hombre es menor de edad y el **3.67%** cuando ambos individuos comparten la misma edad y tambien son menores de edad.
 
 ```{r}
 
@@ -428,7 +428,7 @@ Se observa que el grado con mayor porcentaje es primaria y siguiendole ninguno. 
 PreguntaEscolaridadMujer
 
 ```
-Como se observa en la grafica se demuestra los hombres casados  tienen el siguiente grado academico:   
+Como se observa en la grafica se demuestra los mujeres casados  tienen el siguiente grado academico:   
 \n
 * **1 = No posee ninguna educacion con una cantidad de 30497**  
 * **2 = Educacion Primaria con una cantidad de 9988 **  
