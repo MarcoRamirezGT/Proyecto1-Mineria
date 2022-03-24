@@ -662,3 +662,109 @@ pregunta5.2
 
 Esta pregunta podemos vincularla mucho con la pregunta pasada, ya que comprueba de forma clara que la clase de union 3, es la clara ganadora, por una cantidad abrumadora, seguido de la clase de union 1 y 9 respectivamente. 
 
+### Clustering 
+
+```{r include=FALSE}
+library(cluster) #Para calcular la silueta
+library(e1071)#para cmeans
+library(mclust) #mixtures of gaussians
+library(fpc) #para hacer el plotcluster
+library(NbClust) #Para determinar el número de clusters óptimo
+library(factoextra) #Para hacer gráficos bonitos de clustering
+library(hopkins) #Para revisar si vale la pena hacer agrupamiento
+library(GGally) #Para hacer el conjunto de graficos
+library(FeatureImpCluster) #Para revisar la importancia de las variables en los grupos.
+library(pheatmap) #Para hacer mapa de calor
+library(tidyverse)
+
+db <- readRDS("db10_20.rds")
+#Descripcion de los datos
+#Experimento repetible
+set.seed(123)
+
+datos<-db[complete.cases(db),]
+
+datos<-data.frame(datos)
+
+
+datos<- datos[sample(nrow(datos), 1000), ]
+
+```
+
+
+Para el cluster se utilizo una muestra de 1000 registros, ya que al ser una gran base de datos y por cuestiones de optimizacion era lo mas recomendable.
+Para que el cluster funcione de manera correcta debemos de aplicarlo con las variables numericas. Las cuales son las edades.
+
+```{r}
+
+#Normalizado
+datos[,6:7]<-scale(datos[,6:7])
+#Experimento repetible
+set.seed(123)
+
+
+```
+
+Tras normalizar los datos podemos observar si vale la pena o no hacer el agrupamiento de datos, esto lo decidimos mediante el estadistico de Hopkings.
+```{r}
+hopkins(datos[,6:7])
+
+```
+El cual se observa que el valor esta alejado de 0.5 por lo que los datos no son aleatorios y existen altas posibilades de que sea factible el agrupamiento. 
+Posteriormente para conocer cuantos grupos debemos de usar utilizamos varios metodos directos y metodo de prueba estadistica. 
+
+Primero pusimos a prueba el metodo de codo. 
+```{r}
+#Metodo de codo
+
+
+wss=0
+for (i in 1:10) 
+  wss[i] <- sum(kmeans(db[,6:7], centers=i)$withinss)
+
+plot(1:10, wss, type="b", xlab="Number of Clusters",  ylab="Within groups sum of squares")
+```
+El cual nos sugiere usar 2 cluster
+
+Luego mediante el metodo de elbow, el cual nuevamente nos sugirio utilizar dos clusters.
+```{r}
+
+#Elbow
+fviz_nbclust(datos[,6:7], kmeans, method = "wss") +  labs(subtitle = "Elbow method")
+```
+El metodo de silueta tambien nos sugirio 2 clusters.
+```{r}
+
+#Silhoutte
+fviz_nbclust(datos[,6:7], kmeans, method = "silhouette") +  labs(subtitle = "silhouette method")
+```
+
+No obstante el metodo del paquete de NBclust nos dio un resultado distinto.
+```{r}
+
+#Paquete NbClust
+nb <- NbClust(datos[,6:7], distance = "euclidean", min.nc = 2,max.nc = 10, method = "complete", index ="all")
+
+```
+
+Este nos sugiere usar 3 clusters, por ende esa sera la cantidad que utilizaremos, a pesar que metodos anteriores nos sugiriera 2 clusters, decidimos usar 3 ya que este ultimo metodo consulta mas de 30 metricas dandonos mayor confianza.
+Tras ello el algoritmo de agrupamiento usado es K-Medias.
+```{r}
+
+
+km<-kmeans(datos[,6:7],3)
+datos$grupo<-km$cluster
+
+plotcluster(datos[,6:7],km$cluster)
+
+fviz_cluster(km, data = datos[,6:7],geom = "point", ellipse.type = "norm")
+
+```
+Como se puede observar en las graficas anterior tenemos 3 clusters o centroides que ayudan a distribuir los datos. Para medir la calidad de esto utilizamos el metodo de la silueta.
+```{r}
+#Metodo de silueta
+silkm<-silhouette(km$cluster,dist(datos[,6:7]))
+mean(silkm[,3])
+
+```
+el cual nos dio un valor cercano a 1 indicando que el agrupamiento tiene buena calidad.
