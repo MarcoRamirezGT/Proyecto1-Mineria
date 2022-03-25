@@ -1,6 +1,6 @@
 ---
 title: "InformeProyecto1"
-author: "Marco Ramirez, Alfredo Quezada, Estuardo Hernandez, Eduardo Ramírez"
+author: "Marco Ramirez 19588, Alfredo Quezada 191002, Estuardo Hernandez 19202, Eduardo Ramírez 19946"
 date: "20/3/2022"
 output: html_document
 ---
@@ -11,18 +11,47 @@ library(tidyverse)
 db <- readRDS("db10_20.rds")
 ```
 
-## Informe Proyecto 1
+
+## Situación Problemática: Situación de los matrimonios en la última década en Guatemala. 
+
+
+## Problema científico: 
+
+
+•	Cantidad de menores unidos por el matrimonio a pesar de que existen leyes en Guatemala que prohíben esto. 
+
+
+•	Estándares de los matrimonios en Guatemala. 
+
+
+##  Objetivos:
+
+
+Específicos:
+
+1. Determinar la cantidad de menores casados y su respectiva información.
+2. Determinar la tendencia de los matrimonios en Guatemala.
+
+
+General:
+
+1. Determinar el cumplimiento de las leyes matrimoniales en Guatemala
+
+
 
 La base de datos que utilizamos fue la de matrimonios, proporcionado por el instituto nacional de estadistica (INE). Esta cuenta con las siguientes variables.
 **`r names(db)`**. Las cuales se poseen las siguientes variables numericas y categoricas. Donde las unicas numericas que presentamos son las edades de los individuos.
 
 ```{r}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
 #variables numericas
 ggplot(data = db,aes(db$`Edad de la mujer`))+geom_histogram(bins=30)
 ggplot(data = db,aes(db$`Edad del hombre`))+geom_histogram(bins=30)
 ```
+
+
 Tablas de frecuencia
+
+
 ```{r }
 #Variables categoricas
 
@@ -45,8 +74,7 @@ table(db$`Año de ocurrencia`)
 ```
 
 
-### Analisis Exploratorio
-
+### Analisis Exploratorio, sección menores de edad. 
 
 #### Promedio de edad por año al momento de contraer matrimonio
 
@@ -403,26 +431,6 @@ diffEdadesG<-ggplot(data=diffGroup, aes(x=Diferencia, y=n,fill=Diferencia)) +
 ```
 
 
-```{r}
-pregunta1
-
-```
-
-
-
-   Tal como se observa en la grafica anterior la edad promedio del hombre al contraer matrimonio es de **29**, mientras que la de la mujer es de **26**, cabe mencionar que en los ultimos años se demostro que las personas se estan casando a una edad mayor que antes, , tal como se observa en el año 2011, donde se ve que la edad de la mujer y del hombre es menor al resto de años. Esto puede ser debido al cambio de mentalidad de las personas, ya que la idea de contraer matrimonio a temprana edad va desapareciendo. 
-
-#### Moda de las edades de las parejas en los 10 años de registro
-
-```{r}
-
-pregunta2
-```
-
-
-
-La grafica anterior demuestra la moda de las edades de las parejas al contraer matrimonio, demostrando que la de edad de **21** años para hombre y **19** años para mujer es la mas habitual para unir lazos, se registro **8949** matrimonios cuando el hombre tiene **21** años y la mujer **19**, ademas que en segundo puesto se encuentra cuando el hombre tiene **20** y su pareja **19**.
-
 #### Matrimonio entre menores de edad
 
 ```{r}
@@ -528,6 +536,32 @@ Como se observa en la grafica se demuestra los mujeres casados  tienen el siguie
 ```{r}
 pieEscM
 ```
+
+
+### Analisis Exploratorio, sección de tendencias. 
+
+
+
+```{r}
+pregunta1
+
+```
+
+
+
+   Tal como se observa en la grafica anterior la edad promedio del hombre al contraer matrimonio es de **29**, mientras que la de la mujer es de **26**, cabe mencionar que en los ultimos años se demostro que las personas se estan casando a una edad mayor que antes, , tal como se observa en el año 2011, donde se ve que la edad de la mujer y del hombre es menor al resto de años. Esto puede ser debido al cambio de mentalidad de las personas, ya que la idea de contraer matrimonio a temprana edad va desapareciendo. 
+
+#### Moda de las edades de las parejas en los 10 años de registro
+
+```{r}
+
+pregunta2
+```
+
+
+
+La grafica anterior demuestra la moda de las edades de las parejas al contraer matrimonio, demostrando que la de edad de **21** años para hombre y **19** años para mujer es la mas habitual para unir lazos, se registro **8949** matrimonios cuando el hombre tiene **21** años y la mujer **19**, ademas que en segundo puesto se encuentra cuando el hombre tiene **20** y su pareja **19**.
+
 
 ```{r include=FALSE}
 # Pregunta 1: Cual es el departamento con mas bodas?
@@ -744,55 +778,6 @@ pregunta5.2<-ggplot(data=df, aes(x=Uniones, y=CantidadU, fill=Uniones)) +
 
 ```
 
-### Cual es departamento con mas matrimonios?:
-
-```{r}
-pregunta1.2
-```
-
-
-Como se puede observar en la grafica, el departamento que cuenta con una clara diferencia por sobre los demas departamentos es el #1, el cual corresponde al departamendo de Guatemala con 168220 bodas registradas, el cual es aproximadamente tres veces mas que el departamento que le sigue, como lo es el departamento de Huehuetenango, que tiene una cantidad de matrimonios registrados de: 61839. 
-
-### Cual es el mes con mayor cantidad de matrimonios registrados?:
-
-```{r}
-pregunta2.2
-```
-
-
-El mes de diciembre es el mes en el que mas cantidad de matrimonios se han registrado a lo largo de los 10 años que analizamos, seguido del mes de noviembre, lo cual tiene mucha logica, ya que en estas fechas es cuando mas se suele celebrar o bien llevar a cabo los matrimonios, lo que es de cierta forma sorprendente, es que el mes de septiembre es el que contiene menor cantidad de bodas registradas. 
-
-
-### El porcentaje de tipos de uniones por año:
-
-```{r}
-pregunta3.2
-```
-
-
-En esta ocasion tuvimos un promedio bastante similar, creo que es decir que el tipo de matrimonio que mas es utilizado o el metodo de union mas comun de ver en los 10 años analizados, es el metodo numero 3 o la opcion 3, el cual hace referencia a COMUNIDAD DE GANANCIALEs, esto quiere decir que durante su vigencia sólo uno de los cónyuges administra los bienes comunes, pero al término de la sociedad se dividen los gananciales por mitad a ambos.
-
-
-### Porcentaje de Escolaridad tanto para hombres como mujeres por año:
-
-```{r}
-pregunta4.2
-```
-
-
-La escolaridad promedio por año, tanto de hombres como de mujeres tiene en como claro ganador el 3, lo que hace referencia a un grado de escolaridad de Basico, seguido por dos años atipicos, los cuales justamente son el 2010 y el año 2020, que se tiene un promedio de escolaridad de , que tienen como significad que para esos años, el grado Diversificado era el que dominaba tanto en hombres como en mujeres. 
-
-### Cual es la clase de union mas utilizada en Guatemala?:
-
-```{r}
-pregunta5.2
-```
-
-Esta pregunta podemos vincularla mucho con la pregunta pasada, ya que comprueba de forma clara que la clase de union 3, que como se explica anteriormente es la Comunidad de gananciales es la clara ganadora, por una cantidad abrumadora, seguido de la clase de union 1, que es la COMUNIDAD ABSOLUTA y la numero 9 que es NO ESPECIFICADO respectivamente.
-
-
-
-
 ``` {r include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
 #Cantidad de extranjeros registrados en Guatemala
@@ -844,27 +829,6 @@ pregunta2ED<-ggplot(data=ask1f, aes(x=reorder(D,-C), y=C, fill=D)) +
 
 
 ```
-
-
-### Cantidad de extranjeros registrados en Guatemala
-
-```{r}
-pregunta1Ed
-```
-
-
-Como dato curioso investigamos la cantidad de extranjeros registrados en algun matrimonio en Guatemala y en la grafica podemos observar que existen 7402 hombres extranjeros y 8174 mujeres extranjeras siendo un total de 15576 personas extranjeras registradas en algun matrimonio en Guatemala
-
-### Maximo de bodas registradas en un dia
-
-```{r}
-pregunta2ED
-
-```
-
-
-En este gráfico podemos observar los 5 días donde se registraron mas matrimonios en el mismo día.
-
 
 ```{r include=FALSE}
 #Pregunta 1
@@ -1079,6 +1043,16 @@ pregunta6EH<-ggplot(mismaEtnia, aes(x = "", y = pe, fill = igual)) +
 
 ```
 
+### Cual es departamento con mas matrimonios?:
+
+```{r}
+pregunta1.2
+```
+
+
+Como se puede observar en la grafica, el departamento que cuenta con una clara diferencia por sobre los demas departamentos es el #1, el cual corresponde al departamendo de Guatemala con 168220 bodas registradas, el cual es aproximadamente tres veces mas que el departamento que le sigue, como lo es el departamento de Huehuetenango, que tiene una cantidad de matrimonios registrados de: 61839. 
+
+
 ```{r}
 pregunta1EH
 ```
@@ -1091,16 +1065,73 @@ pregunta2EH
 
 En este gráfico se observa cinco municipios que han tenido solo una boda, estos son: Totonicapán, Santa Catarina Palopó, Guazacapán, Palín y Santa María de Jesús. Cabe mencionar que hay otros municipios donde se han realizado una única boda y departamentos donde no se han registrado ni una boda.
 
+
+### Maximo de bodas registradas en un dia
+
+```{r}
+pregunta2ED
+
+```
+
+
+En este gráfico podemos observar los 5 días donde se registraron mas matrimonios en el mismo día.
+
+
+### Cual es el mes con mayor cantidad de matrimonios registrados?
+
+```{r}
+pregunta2.2
+```
+
+
+El mes de diciembre es el mes en el que mas cantidad de matrimonios se han registrado a lo largo de los 10 años que analizamos, seguido del mes de noviembre, lo cual tiene mucha logica, ya que en estas fechas es cuando mas se suele celebrar o bien llevar a cabo los matrimonios, lo que es de cierta forma sorprendente, es que el mes de septiembre es el que contiene menor cantidad de bodas registradas. 
+
+
+### Porcentaje de Escolaridad tanto para hombres como mujeres por año:
+
+```{r}
+pregunta4.2
+```
+
+
+La escolaridad promedio por año, tanto de hombres como de mujeres tiene en como claro ganador el 3, lo que hace referencia a un grado de escolaridad de Basico, seguido por dos años atipicos, los cuales justamente son el 2010 y el año 2020, que se tiene un promedio de escolaridad de , que tienen como significad que para esos años, el grado Diversificado era el que dominaba tanto en hombres como en mujeres. 
+
+### Cual es la clase de union mas utilizada en Guatemala?:
+
+```{r}
+pregunta5.2
+```
+
+El metodo de union mas comun de ver en los 10 años analizados, es el metodo numero 3 o la opcion 3, el cual hace referencia a COMUNIDAD DE GANANCIALES, esto quiere decir que durante su vigencia sólo uno de los cónyuges administra los bienes comunes, pero al término de la sociedad se dividen los gananciales por mitad a ambos., que como se explica anteriormente es la Comunidad de gananciales es la clara ganadora, por una cantidad abrumadora, seguido de la clase de union 1, que es la COMUNIDAD ABSOLUTA y la numero 9 que es NO ESPECIFICADO respectivamente.
+
+
+
+
+### Cantidad de extranjeros registrados en Guatemala
+
+```{r}
+pregunta1Ed
+```
+
+
+Como dato curioso investigamos la cantidad de extranjeros registrados en algun matrimonio en Guatemala y en la grafica podemos observar que existen 7402 hombres extranjeros y 8174 mujeres extranjeras siendo un total de 15576 personas extranjeras registradas en algun matrimonio en Guatemala
+
+
+
 ```{r}
 pregunta3EH
 ```
 
+
+Del gráfico anterior se observa que la mayoría, un 39.8%, de los hombres casados son mestizos o ladinos. 35.96% son mayas, 12.68% son garifunas, 1.11% son de otras etnias y el 10.45% son datos ignorados. Entonces podemos decir que la gran parte de los hombres son mestizos o ladinos y mayas.
 
 
 ```{r}
 pregunta4EH
 ```
 
+
+En el caso de las mujeres, 38.48% son mestizas o ladinas, 34.36% son mayas, 12.26% son garifunas, 1.22% son de otras etnias y el 13.68% de los datos son ignorados. Muy similar al caso de los hombres, las mayoría de las mujeres son mestizas o ladinas y mayas.
 
 
 ```{r}
@@ -1165,6 +1196,8 @@ Tras normalizar los datos podemos observar si vale la pena o no hacer el agrupam
 hopkins(datos[,6:7])
 
 ```
+
+
 El cual se observa que el valor esta alejado de 0.5 por lo que los datos no son aleatorios y existen altas posibilades de que sea factible el agrupamiento. 
 Posteriormente para conocer cuantos grupos debemos de usar utilizamos varios metodos directos y metodo de prueba estadistica. 
 
@@ -1179,6 +1212,8 @@ for (i in 1:10)
 
 plot(1:10, wss, type="b", xlab="Number of Clusters",  ylab="Within groups sum of squares")
 ```
+
+
 El cual nos sugiere usar 2 cluster
 
 Luego mediante el metodo de elbow, el cual nuevamente nos sugirio utilizar dos clusters.
@@ -1187,14 +1222,21 @@ Luego mediante el metodo de elbow, el cual nuevamente nos sugirio utilizar dos c
 #Elbow
 fviz_nbclust(datos[,6:7], kmeans, method = "wss") +  labs(subtitle = "Elbow method")
 ```
+
+
 El metodo de silueta tambien nos sugirio 2 clusters.
+
+
 ```{r}
 
 #Silhoutte
 fviz_nbclust(datos[,6:7], kmeans, method = "silhouette") +  labs(subtitle = "silhouette method")
 ```
 
+
 No obstante el metodo del paquete de NBclust nos dio un resultado distinto.
+
+
 ```{r}
 
 #Paquete NbClust
@@ -1202,8 +1244,12 @@ nb <- NbClust(datos[,6:7], distance = "euclidean", min.nc = 2,max.nc = 10, metho
 
 ```
 
+
+
 Este nos sugiere usar 3 clusters, por ende esa sera la cantidad que utilizaremos, a pesar que metodos anteriores nos sugiriera 2 clusters, decidimos usar 3 ya que este ultimo metodo consulta mas de 30 metricas dandonos mayor confianza.
 Tras ello el algoritmo de agrupamiento usado es K-Medias.
+
+
 ```{r}
 
 
@@ -1215,13 +1261,29 @@ plotcluster(datos[,6:7],km$cluster)
 fviz_cluster(km, data = datos[,6:7],geom = "point", ellipse.type = "norm")
 
 ```
+
+
 Como se puede observar en las graficas anterior tenemos 3 clusters o centroides que ayudan a distribuir los datos. Para medir la calidad de esto utilizamos el metodo de la silueta.
+
+
 ```{r}
 #Metodo de silueta
 silkm<-silhouette(km$cluster,dist(datos[,6:7]))
 mean(silkm[,3])
 
 ```
+
+
 el cual nos dio un valor cercano a 1 indicando que el agrupamiento tiene buena calidad.
+
+
+
+## Conclusiones:
+
+
+1.  Se determino que, a pesar de las leyes impuestas por el gobierno sobre la prohibición del matrimonio entre menores, si disminuyo conforme el tiempo, sin embargo, esto no significa que ya no existan uniones con algún menor de edad.  
+
+
+2. Además, se demuestra que el departamento de Guatemala tiene mayor cantidad de registros, esto puede ser causado porque las personas de otros departamentos vienen a este departamento a realizar su unión. 
 
 
