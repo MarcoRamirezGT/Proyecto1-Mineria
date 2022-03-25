@@ -771,7 +771,7 @@ pregunta1Ed
 ```
 
 
-Aqui la justificacion.
+Como dato curioso investigamos la cantidad de extranjeros registrados en algun matrimonio en Guatemala y en la grafica podemos observar que existen 7402 hombres extranjeros y 8174 mujeres extranjeras siendo un total de 15576 personas extranjeras registradas en algun matrimonio en Guatemala
 
 ### Maximo de bodas registradas en un dia
 
@@ -781,7 +781,7 @@ pregunta2ED
 ```
 
 
-Aqui la justificacion. 
+En este gráfico podemos observar los 5 días donde se registraron mas matrimonios en el mismo día.
 
 
 
