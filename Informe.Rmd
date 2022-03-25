@@ -343,7 +343,7 @@ edadParejaAlMenosUnMenor$diff<-abs( edadParejaAlMenosUnMenor$`Edad del hombre`-e
 diffMayor<-data.frame(c(edadParejaAlMenosUnMenor$diff))
 colnames(diffMayor)[1]<-'Diferencia'
 diffMayor<-diffMayor %>% arrange(desc(Diferencia))
-View(diffMayor)
+
 diffMayorN<-head(diffMayor,n=5)
 
 
@@ -361,7 +361,7 @@ diffGroup<-diffMayor %>%
   group_by(Diferencia) %>%
   tally()
 
-View(diffGroup)
+
 diffGroup<-head(diffGroup,n=7)
 diffGroup$Diferencia<-as.factor(diffGroup$Diferencia)
 diffEdadesG<-ggplot(data=diffGroup, aes(x=Diferencia, y=n,fill=Diferencia)) +
