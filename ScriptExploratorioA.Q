@@ -12,6 +12,8 @@ depocu<-subset(dep, select=c('Departamento de ocurrencia'),db$`Departamento de o
 dep1<-data.frame(depocu)
 nde<-aggregate(dep1$dep, dep1, length)
 
+View(nde)
+
 
 Departamento<-c(nde$depocu)
 CantidadMa<-c(nde$x)
@@ -19,7 +21,7 @@ df<-data.frame(Departamento,CantidadMa)
 df$Departamento<-as.factor(df$Departamento)
 
 
-ggplot(data=df, aes(x=reorder(Departamento,CantidadMa), y=CantidadMa, fill=Departamento)) +
+pregunta1<-ggplot(data=df, aes(x=reorder(Departamento,CantidadMa), y=CantidadMa, fill=Departamento)) +
   geom_bar(stat="identity", position=position_dodge())+
   geom_text(aes(label=CantidadMa), vjust=1.6, color="black",
             position = position_dodge(0.9), size=3.5)+
@@ -39,7 +41,7 @@ df1<-data.frame(Mes,Cantidad)
 df1$Mes<-as.factor(df1$Mes)
 
 
-ggplot(data=df1, aes(x=reorder(Mes,Cantidad), y=Cantidad, fill=Mes)) +
+pregunta2<-ggplot(data=df1, aes(x=reorder(Mes,Cantidad), y=Cantidad, fill=Mes)) +
   geom_bar(stat="identity", position=position_dodge())+
   geom_text(aes(label=Cantidad), vjust=1.6, color="black",
             position = position_dodge(0.9), size=3.5)+
@@ -106,7 +108,7 @@ Año<-c(2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020)
 df2<-data.frame(UnionPromedio,Año)
 
 df2$Año<-as.factor(df2$Año)
-ggplot(data=df2, aes(x=Año, y=UnionPromedio, fill=UnionPromedio)) +
+pregunta3<-ggplot(data=df2, aes(x=Año, y=UnionPromedio, fill=UnionPromedio)) +
   geom_bar(stat="identity", position=position_dodge())+
   geom_text(aes(label=UnionPromedio), vjust=1.6, color="black",
             position = position_dodge(0.9), size=3.5)
@@ -189,7 +191,7 @@ Año<-c(2010	,2010,2011,2011,	2012,2012	,2013,2013	,2014,2014 ,	2015,2015	,2016,
 df3<-data.frame(Sexo, EscoPromedio,Año)
 
 df3$Año<-as.factor(df3$Año)
-ggplot(data=df3, aes(x=Año, y=EscoPromedio, fill=Sexo)) +
+pregunta4<-ggplot(data=df3, aes(x=Año, y=EscoPromedio, fill=Sexo)) +
   geom_bar(stat="identity", position=position_dodge())+
   geom_text(aes(label=EscoPromedio), vjust=1.6, color="black",
             position = position_dodge(0.9), size=3.5)
@@ -211,7 +213,7 @@ Uniones<-c(cu$clas)
 CantidadU<-c(cu$x)
 df<-data.frame(Uniones,CantidadU)
 df$Uniones<-as.factor(df$Uniones)
-ggplot(data=df, aes(x=Uniones, y=CantidadU, fill=Uniones)) +
+pregunta5<-ggplot(data=df, aes(x=Uniones, y=CantidadU, fill=Uniones)) +
   geom_bar(stat="identity", position=position_dodge())+
   geom_text(aes(label=CantidadU), vjust=1.6, color="black",
             position = position_dodge(0.9), size=3.5)
