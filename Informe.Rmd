@@ -343,7 +343,9 @@ pregunta6<-ggplot(ask4, aes(x = "", y = Porcentaje, fill = EdadesPareja)) +
 pregunta1
 
 ```
-\n \n \n
+
+
+
    Tal como se observa en la grafica anterior la edad promedio del hombre al contraer matrimonio es de **29**, mientras que la de la mujer es de **26**, cabe mencionar que en los ultimos años se demostro que las personas se estan casando a una edad mayor que antes, , tal como se observa en el año 2011, donde se ve que la edad de la mujer y del hombre es menor al resto de años. Esto puede ser debido al cambio de mentalidad de las personas, ya que la idea de contraer matrimonio a temprana edad va desapareciendo. 
 
 #### Moda de las edades de las parejas en los 10 años de registro
@@ -352,7 +354,9 @@ pregunta1
 
 pregunta2
 ```
-\n \n \n 
+
+
+
 La grafica anterior demuestra la moda de las edades de las parejas al contraer matrimonio, demostrando que la de edad de **21** años para hombre y **19** años para mujer es la mas habitual para unir lazos, se registro **8949** matrimonios cuando el hombre tiene **21** años y la mujer **19**, ademas que en segundo puesto se encuentra cuando el hombre tiene **20** y su pareja **19**.
 
 #### Matrimonio entre menores de edad
@@ -360,6 +364,7 @@ La grafica anterior demuestra la moda de las edades de las parejas al contraer m
 ```{r}
 pregunta3
 ```
+
 
 Segun el analisis realizado en la base de datos, se encontro que, ha habido una cantidad total de **`r cantidad`** matrimonios realizados entre dos personas menores de edad durante el año 2010 a 2020. Sin embargo, segun el articulo 84, del codigo civil, expone lo siguiente, *“Artículo 84. Prohibición de contraer matrimonio. No podrán contraer matrimonio ni autorizarse de manera alguna, el matrimonio de menores de dieciséis (16) años de edad.”*
 ```{r}
@@ -401,12 +406,14 @@ pregunta6
 
 ```
 
+
 Tal como se observa del **100%** de los matrimonios donde exista algun menor el **88.66%** es cuando la mujer es menor de edad y el hombre es mayor que ella, el **7.68%** es cuando el hombre es menor de edad y el **3.67%** cuando ambos individuos comparten la misma edad y tambien son menores de edad.
 
 ```{r}
 
 PreguntaEscolaridad
 ```
+
 
 Como se observa en la grafica se demuestra los hombres casados tienen el siguiente grado academico: \n  
 
@@ -422,12 +429,16 @@ Viendo en una grafica de pie
 ```{r}
 pieEscH
 ```
+
+
 Se observa que el grado con mayor porcentaje es primaria y siguiendole ninguno. Ahora enfocandonos en el sexo femenino se obtuvo lo siguiente  
 
 ```{r}
 PreguntaEscolaridadMujer
 
 ```
+
+
 Como se observa en la grafica se demuestra los mujeres casados  tienen el siguiente grado academico:   
 \n
 * **1 = No posee ninguna educacion con una cantidad de 30497**  
@@ -665,7 +676,7 @@ pregunta1.2
 ```
 
 
-Como se puede observar en la grafica, el departamentto 1 cuenta con una clara diferencia por sobre los demas departamentos, aproximadamente tres veces mas que el departamento que le sigue, como lo es el departamento 3.
+Como se puede observar en la grafica, el departamento que cuenta con una clara diferencia por sobre los demas departamentos es el #1, el cual corresponde al departamendo de Guatemala con 168220 bodas registradas, el cual es aproximadamente tres veces mas que el departamento que le sigue, como lo es el departamento de Huehuetenango, que tiene una cantidad de matrimonios registrados de: 61839. 
 
 ### Cual es el mes con mayor cantidad de matrimonios registrados?:
 
@@ -684,7 +695,7 @@ pregunta3.2
 ```
 
 
-En esta ocasion tuvimos un promedio bastante similar, creo que es decir que el tipo de matrimonio que mas es utilizado o el metodo de union mas comun de ver en los 10 años analizados, es el metodo numero 3 o la opcion 3. 
+En esta ocasion tuvimos un promedio bastante similar, creo que es decir que el tipo de matrimonio que mas es utilizado o el metodo de union mas comun de ver en los 10 años analizados, es el metodo numero 3 o la opcion 3, el cual hace referencia a COMUNIDAD DE GANANCIALEs, esto quiere decir que durante su vigencia sólo uno de los cónyuges administra los bienes comunes, pero al término de la sociedad se dividen los gananciales por mitad a ambos.
 
 
 ### Porcentaje de Escolaridad tanto para hombres como mujeres por año:
@@ -694,7 +705,7 @@ pregunta4.2
 ```
 
 
-La escolaridad promedio por año, tanto de hombres como de mujeres tiene en como claro ganador el 3, seguido por dos años atipicos, los cuales gustamente son el 2010 y el año 2020, que se tiene un promedio de escolaridad de 4. 
+La escolaridad promedio por año, tanto de hombres como de mujeres tiene en como claro ganador el 3, lo que hace referencia a un grado de escolaridad de Basico, seguido por dos años atipicos, los cuales justamente son el 2010 y el año 2020, que se tiene un promedio de escolaridad de , que tienen como significad que para esos años, el grado Diversificado era el que dominaba tanto en hombres como en mujeres. 
 
 ### Cual es la clase de union mas utilizada en Guatemala?:
 
@@ -702,7 +713,7 @@ La escolaridad promedio por año, tanto de hombres como de mujeres tiene en como
 pregunta5.2
 ```
 
-Esta pregunta podemos vincularla mucho con la pregunta pasada, ya que comprueba de forma clara que la clase de union 3, es la clara ganadora, por una cantidad abrumadora, seguido de la clase de union 1 y 9 respectivamente.
+Esta pregunta podemos vincularla mucho con la pregunta pasada, ya que comprueba de forma clara que la clase de union 3, que como se explica anteriormente es la Comunidad de gananciales es la clara ganadora, por una cantidad abrumadora, seguido de la clase de union 1, que es la COMUNIDAD ABSOLUTA y la numero 9 que es NO ESPECIFICADO respectivamente.
 
 
 
