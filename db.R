@@ -424,7 +424,7 @@ dataMega2<-full_join(dd,data19_20)
 dataMegaFinal<-full_join(dataMega,dataMega2)
 nrow(dataMegaFinal)
 #save(dataMegaFinal, file = "db10_20.RData")
-view(dataMegaFinal)
+#view(dataMegaFinal)
 
 saveRDS(dataMegaFinal, "db10_20.rds")
 

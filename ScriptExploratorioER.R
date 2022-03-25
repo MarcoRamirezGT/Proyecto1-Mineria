@@ -13,7 +13,10 @@ mujeres_ext<-subset(db, select=c('Nacionalidad de la mujer'),db$`Nacionalidad de
 mujeres<-nrow(mujeres_ext)
 mujeres
 
-df<-data.frame("Hombres Extranjeros"=hombres, "Mujeres extranjeras"=mujeres)
+extranjerosgt<-(mujeres+hombres)
+extranjerosgt
 
-table(df)
+df<-data.frame("Hombres Extranjeros"=hombres, "Mujeres extranjeras"=mujeres, "Total"=extranjerosgt)
+
+view(df)
 
