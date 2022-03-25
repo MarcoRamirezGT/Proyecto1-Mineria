@@ -320,7 +320,7 @@ edadParejaAlMenosUnMenor$diff<-abs( edadParejaAlMenosUnMenor$`Edad del hombre`-e
 diffMayor<-data.frame(c(edadParejaAlMenosUnMenor$diff))
 colnames(diffMayor)[1]<-'Diferencia'
 diffMayor<-diffMayor %>% arrange(desc(Diferencia))
-View(diffMayor)
+
 diffMayorN<-head(diffMayor,n=5)
 
 
@@ -337,7 +337,7 @@ diffGroup<-diffMayor %>%
   group_by(Diferencia) %>%
   tally()
 
-View(diffGroup)
+
 diffGroup<-head(diffGroup,n=7)
 diffGroup$Diferencia<-as.factor(diffGroup$Diferencia)
 diffEdadesG<-ggplot(data=diffGroup, aes(x=Diferencia, y=n,fill=Diferencia)) +
@@ -346,3 +346,29 @@ diffEdadesG<-ggplot(data=diffGroup, aes(x=Diferencia, y=n,fill=Diferencia)) +
             position = position_dodge(0.9), size=3.5)+
   labs(title="Cantidad de diferencia de edades", y="Diferencia de edades")+
   theme(legend.position="none")
+#Tablas de frecuencia
+
+
+
+
+
+#variables numericas
+ggplot(data = db,aes(db$`Edad de la mujer`))+geom_histogram(bins=30)
+ggplot(data = db,aes(db$`Edad del hombre`))+geom_histogram(bins=30)
+#Variables categoricas
+
+table(db$`Departamento de registro`)
+table(db$`Municipio de registro`)
+table(db$`Mes de registro`)
+table(db$`Año de registro`)
+table(db$`Clase de union`)
+table(db$`Grupo etnico del hombre`)
+table(db$`Grupo etnico de la mujer`)
+table(db$`Grupo etnico del hombre`)
+table(db$`Nacionalidad del hombre`)
+table(db$`Escolaridad del hombre`)
+table(db$`Escolaridad de la mujer`)
+table(db$`Departamento de ocurrencia`)
+table(db$`Dia de ocurrencia`)
+table(db$`Mes de ocurrencia`)
+table(db$`Año de ocurrencia`)

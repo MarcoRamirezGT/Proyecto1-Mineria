@@ -14,7 +14,35 @@ db <- readRDS("db10_20.rds")
 ## Informe Proyecto 1
 
 La base de datos que utilizamos fue la de matrimonios, proporcionado por el instituto nacional de estadistica (INE). Esta cuenta con las siguientes variables.
-**`r names(db)`**. Las cuales se poseen las siguientes variables numericas y categoricas
+**`r names(db)`**. Las cuales se poseen las siguientes variables numericas y categoricas. Donde las unicas numericas que presentamos son las edades de los individuos.
+
+```{r}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+#variables numericas
+ggplot(data = db,aes(db$`Edad de la mujer`))+geom_histogram(bins=30)
+ggplot(data = db,aes(db$`Edad del hombre`))+geom_histogram(bins=30)
+```
+Tablas de frecuencia
+```{r }
+#Variables categoricas
+
+table(db$`Departamento de registro`)
+table(db$`Municipio de registro`)
+table(db$`Mes de registro`)
+table(db$`Año de registro`)
+table(db$`Clase de union`)
+table(db$`Grupo etnico del hombre`)
+table(db$`Grupo etnico de la mujer`)
+table(db$`Grupo etnico del hombre`)
+table(db$`Nacionalidad del hombre`)
+table(db$`Escolaridad del hombre`)
+table(db$`Escolaridad de la mujer`)
+table(db$`Departamento de ocurrencia`)
+table(db$`Dia de ocurrencia`)
+table(db$`Mes de ocurrencia`)
+table(db$`Año de ocurrencia`)
+
+```
 
 
 ### Analisis Exploratorio
