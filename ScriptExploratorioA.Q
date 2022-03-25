@@ -219,5 +219,10 @@ pregunta5<-ggplot(data=df, aes(x=Uniones, y=CantidadU, fill=Uniones)) +
             position = position_dodge(0.9), size=3.5)
 
 
+#Conteo 
+length(which(db$`Clase de union` ==3&db$`Año de registro`==2010))
 
+length(which(db$`Clase de union` ==2))
+length(which(db$`Clase de union` ==1))
+length(which(db$`Clase de union` ==9))
 

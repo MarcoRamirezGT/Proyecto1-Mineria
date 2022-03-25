@@ -335,6 +335,42 @@ pregunta6<-ggplot(ask4, aes(x = "", y = Porcentaje, fill = EdadesPareja)) +
   coord_polar(theta = "y")+theme(legend.position = "bottom")+
   labs(title="Porcentaje de matrimonios donde uno es menor de edad")
 
+#Diferencia entre las edades
+
+
+edadParejaAlMenosUnMenor$diff<-abs( edadParejaAlMenosUnMenor$`Edad del hombre`-edadParejaAlMenosUnMenor$`Edad de la mujer`)
+
+diffMayor<-data.frame(c(edadParejaAlMenosUnMenor$diff))
+colnames(diffMayor)[1]<-'Diferencia'
+diffMayor<-diffMayor %>% arrange(desc(Diferencia))
+View(diffMayor)
+diffMayorN<-head(diffMayor,n=5)
+
+
+
+diffEdades<-ggplot(data=diffMayorN, aes(x=Diferencia, y=Diferencia,fill=Diferencia)) +
+  geom_bar(stat="identity", position=position_dodge())+
+  geom_text(aes(label=Diferencia), vjust=1.6, color="black",
+            position = position_dodge(0.9), size=3.5)+
+  labs(title="Diferencia de edades entre los matrimonios con un menor de edad", y="Diferencia de edades")+
+  theme(legend.position="none")
+
+
+#Group By
+diffGroup<-diffMayor %>%
+  group_by(Diferencia) %>%
+  tally()
+
+View(diffGroup)
+diffGroup<-head(diffGroup,n=7)
+diffGroup$Diferencia<-as.factor(diffGroup$Diferencia)
+diffEdadesG<-ggplot(data=diffGroup, aes(x=Diferencia, y=n,fill=Diferencia)) +
+  geom_bar(stat="identity", position=position_dodge())+
+  geom_text(aes(label=n), vjust=1.6, color="black",
+            position = position_dodge(0.9), size=3.5)+
+  labs(title="Cantidad de diferencia de edades", y="Diferencia de edades")+
+  theme(legend.position="none")
+
 
 ```
 
@@ -407,8 +443,19 @@ pregunta6
 ```
 
 
-Tal como se observa del **100%** de los matrimonios donde exista algun menor el **88.66%** es cuando la mujer es menor de edad y el hombre es mayor que ella, el **7.68%** es cuando el hombre es menor de edad y el **3.67%** cuando ambos individuos comparten la misma edad y tambien son menores de edad.
+Tal como se observa del **100%** de los matrimonios donde exista algun menor el **88.66%** es cuando la mujer es menor de edad y el hombre es mayor que ella, el **7.68%** es cuando el hombre es menor de edad y el **3.67%** cuando ambos individuos comparten la misma edad y tambien son menores de edad. Ahora si nos enfocamos en la diferencia entre las edades se obtiene lo siguiente
 
+```{r}
+diffEdades
+```
+Como se observa la mayor diferencia entre un menor de edad y su pareja es de 62 años y siguiendole la edad de 59 años. Ahora si vemos las edades agrupadas obtenemos lo siguiente.
+
+
+```{r}
+diffEdadesG
+```
+
+Tal como se ve en la grafica la mayor diferencia de edades entre un menor de edad y su pareja es de 3 años, y en segundo lugar es de 2 años.
 ```{r}
 
 PreguntaEscolaridad
@@ -457,7 +504,7 @@ pieEscM
 ```{r include=FALSE}
 # Pregunta 1: Cual es el departamento con mas bodas?
 dep<-db[,'Departamento de ocurrencia']
-View(dep)
+
 depocu<-subset(dep, select=c('Departamento de ocurrencia'),db$`Departamento de ocurrencia` != 0)
 dep1<-data.frame(depocu)
 nde<-aggregate(dep1$dep, dep1, length)
@@ -719,6 +766,7 @@ Esta pregunta podemos vincularla mucho con la pregunta pasada, ya que comprueba 
 
 
 ``` {r include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
 #Cantidad de extranjeros registrados en Guatemala
 
 
@@ -736,8 +784,6 @@ extraT<-c(extranjerosgtT)
 
 df<-data.frame(extran, extraT)
 
-View(df)
-
 df$extran<-as.factor(df$extran)
 
 pregunta1Ed<-ggplot(data=df, aes(x=reorder(extraT,extran), y=extran, fill=extraT)) +
@@ -752,9 +798,6 @@ dep<-db[,'Dia de ocurrencia']
 depocu<-subset(dep, select=c('Dia de ocurrencia'),db$`Dia de ocurrencia` != 0)
 dep1<-data.frame(depocu)
 nde<-aggregate(dep1$dep, dep1, length)
-
-View(nde)
-
 
 D<-c(nde$depocu)
 C<-c(nde$x)

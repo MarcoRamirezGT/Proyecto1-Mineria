@@ -310,3 +310,39 @@ pregunta6<-ggplot(ask4, aes(x = "", y = Porcentaje, fill = EdadesPareja)) +
              show.legend = FALSE) +
   coord_polar(theta = "y")+theme(legend.position = "bottom")+
   labs(title="Porcentaje de matrimonios donde uno es menor de edad")
+
+#Diferencia entre las edades
+
+
+
+edadParejaAlMenosUnMenor$diff<-abs( edadParejaAlMenosUnMenor$`Edad del hombre`-edadParejaAlMenosUnMenor$`Edad de la mujer`)
+
+diffMayor<-data.frame(c(edadParejaAlMenosUnMenor$diff))
+colnames(diffMayor)[1]<-'Diferencia'
+diffMayor<-diffMayor %>% arrange(desc(Diferencia))
+View(diffMayor)
+diffMayorN<-head(diffMayor,n=5)
+
+
+
+diffEdades<-ggplot(data=diffMayorN, aes(x=Diferencia, y=Diferencia,fill=Diferencia)) +
+  geom_bar(stat="identity", position=position_dodge())+
+  geom_text(aes(label=Diferencia), vjust=1.6, color="black",
+            position = position_dodge(0.9), size=3.5)+
+  labs(title="Diferencia de edades entre los matrimonios con un menor de edad", y="Diferencia de edades")+
+  theme(legend.position="none")
+
+#Group By
+diffGroup<-diffMayor %>%
+  group_by(Diferencia) %>%
+  tally()
+
+View(diffGroup)
+diffGroup<-head(diffGroup,n=7)
+diffGroup$Diferencia<-as.factor(diffGroup$Diferencia)
+diffEdadesG<-ggplot(data=diffGroup, aes(x=Diferencia, y=n,fill=Diferencia)) +
+  geom_bar(stat="identity", position=position_dodge())+
+  geom_text(aes(label=n), vjust=1.6, color="black",
+            position = position_dodge(0.9), size=3.5)+
+  labs(title="Cantidad de diferencia de edades", y="Diferencia de edades")+
+  theme(legend.position="none")
