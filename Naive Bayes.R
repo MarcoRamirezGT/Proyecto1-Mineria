@@ -68,7 +68,7 @@ Accuracy(predicted_value,expected_value)
 table(expected_value,predicted_value)
 
 
-#Modelo 1 : Variable respuesta Escolaridad del hombre y mujer
+#Modelo 4 : Variable respuesta Escolaridad del hombre y mujer
 #Escolaridad del hombre
 NB = naiveBayes(train$`Escolaridad del hombre` ~.,train,laplace = 0.01)
 
@@ -97,3 +97,4 @@ confuisonMatrix <- confusionMatrix(data=predicted_value, reference = expected_va
 confuisonMatrix
 Accuracy(predicted_value,expected_value)
 table(expected_value,predicted_value)
+
