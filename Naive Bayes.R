@@ -35,6 +35,11 @@ confuisonMatrix
 Accuracy(predicted_value,expected_value)
 table(expected_value,predicted_value)
 
+
+
+
+
+
 #Modelo2 : Variable respuesta es clase de union
 NB = naiveBayes(train$`Clase de union` ~.,train)
 
