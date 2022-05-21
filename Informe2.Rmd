@@ -7,17 +7,48 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-```
 
-```{r}
 library(tidyverse)
 library("e1071")
 library(caret)
 library('MLmetrics')
+library(rpart)
+library(tree)
+library(rpart.plot)
+library(randomForest)
 # Read the data into a table from the file
+
 #Prediccion de la variable Clase de union
 db <- readRDS("db10_20.rds")
 
+df<-data[,c("Departamento de registro","Municipio de registro","Escolaridad del hombre","Escolaridad de la mujer","Grupo etnico del hombre","Grupo etnico de la mujer", "Clase de union")]
+
+ws<-data[,c("Clase de union")]
+ws<- haven::as_factor(ws)
+
+m1<-rpart(ws~ ., data = df, method = "anova")
+
+```
+
+## Árbol de Regresión
+
+La variable de respuesta utilizada para este método fue la clase de unión de cada matrimonio registrado. Debido a que el objetivo es obtener una buena prediccion de la variable "clase de unión" utilizando las demás variables como "Departamento de registro", "Municipio de registro", "Escolaridad del hombre", "Escolaridad de la mujer", "Grupo étnico del hombre" y "Grupo étnico de la mujer". Y este mismo conjunto de variables fue el mejor a la hora de predecir la variable respuesta.
+
+
+Los datos se encuentran balanceados porque todos son numéricos de longitudes similares.
+En este caso, se tuvo que transformar la columna "Clase de unión" a factor para poder graficar el árbol, ya que era de tipo numérico con etiquetas.
+
+```{r}
+rpart.plot(m1, type = 3, digits = 3, fallen.leaves = TRUE )
+```
+
+Este árbol de regresión se creó en base a variables numéricas con la finalidad de precedir la clase de unión del matrimonio. Mediante este arbol se clasifica en qué clase de unión está el matrimonio, si la clase es menor que 3 y menor que 2, determinamos que el 5.7% de los matrimonios están bajo la clase 1 de "Comunidad absoluta".
+
+Si la clase es menor que 3, pero mayor o igual a dos, determinamos que el 2% de los matrimonios están bajo la clase 2 de "Separación absoluta". Si la clase es mayor o igual a 3 y menor que 6, determinamos que el 87.9% de los matrimonios están bajo la clase 3 de "Comunidad de gananciales". Y por último, si la clase es mayor o igual que 3, pero mayor o igual que 6, determinamos que el 4.5% de los matrimonios están bajo la clase 9 de "No especificado".
+
+Se puede decir que el árbol de regresión fue exitoso, ya que el algoritmo logró hacer clasificaciones a partir de varibales que nosotros consideramos como claves, así mismo fue capaz de separarlas en categorías, también se puede ver que por las mismas clasificaciones de las variables, la prediccion es bastante lógica, porque la clase de unión 3 de "Comunidad de gananciales" es la que más se usa y es la que tiene el porcentaje más alto.
+
+```{r}
 #Bayes 
 #Usamos el 70% de datos
 porcentaje<-0.7
