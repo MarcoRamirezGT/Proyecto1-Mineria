@@ -18,7 +18,7 @@ train<-db[corte,]
 
 #Prueba
 test<-db[-corte,]
-
+table(db$`Clase de union`)
 #Modelo 1 : Variable respuesta es clase de union
 # use NB classifier
 NB = naiveBayes(train$`Clase de union` ~.,train,laplace = 0.01)
