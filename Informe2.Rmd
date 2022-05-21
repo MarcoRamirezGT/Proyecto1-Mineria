@@ -65,7 +65,10 @@ test<-db[-corte,]
 
 ## Situación Problemática: Situación de los matrimonios en la última década en Guatemala.
 
-Se seleccionaron 4 variables respuesta  diferentes para poder aplicarles Naive Bayes usando el clasificador para crear los modelos de prediccion y obtener los resultados de cada uno de los modelos a continuacion:
+En cada uno de los modelos realizados se utilizo laplace, en este caso se crearon 3 modelos con la misma variable respuesta pero cada una con diferente transformada de laplace y 2 modelos con otro tipo de variable respuesta para poder ir realizando distintas pruebas.
+
+Las variables respuesta que utilizamos en estos modelos fueron "Clase de Union" y "Escolaridad de hombre y mujer" ya que al relacionar estas dos variables podemos obtener una prediccion bastante buena para las variables respuesta.
+
 
 ## Modelo 1 : Variable respuesta es clase de union
 

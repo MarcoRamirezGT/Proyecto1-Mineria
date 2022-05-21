@@ -31,10 +31,10 @@ predicted_value = predict(NB,test)
 expected_value = factor(test$`Clase de union`)
 
 #Creating confusion matrix
-confuisonMatrix <- confusionMatrix(data=predicted_value, reference = expected_value)
+confusionMatrix <- confusionMatrix(data=predicted_value, reference = expected_value)
 
 #Display results 
-confuisonMatrix
+confusionMatrix
 Accuracy(predicted_value,expected_value)
 table(expected_value,predicted_value)
 
@@ -53,10 +53,10 @@ predicted_value = predict(NB,test)
 expected_value = factor(test$`Clase de union`)
 
 #Creating confusion matrix
-confuisonMatrix <- confusionMatrix(data=predicted_value, reference = expected_value)
+confusionMatrix <- confusionMatrix(data=predicted_value, reference = expected_value)
 
 #Display results 
-confuisonMatrix
+confusionMatrix
 Accuracy(predicted_value,expected_value)
 table(expected_value,predicted_value)
 
@@ -119,9 +119,6 @@ confuisonMatrix
 Accuracy(predicted_value,expected_value)
 table(expected_value,predicted_value)
 
-<<<<<<< HEAD
-=======
 rmse_escolaridadMujer=rmse(test$`Escolaridad de la mujer`,predicted_value)
 
 
->>>>>>> 76deed0a05667b83b0f33eb9274a9454ef329ed4
