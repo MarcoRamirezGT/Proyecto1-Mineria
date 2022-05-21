@@ -2,6 +2,9 @@ library(tidyverse)
 library("e1071")
 library(caret)
 library('MLmetrics')
+library(ModelMetrics)
+
+
 # Read the data into a table from the file
 #Prediccion de la variable Clase de union
 db <- readRDS("db10_20.rds")
@@ -35,6 +38,8 @@ confuisonMatrix
 Accuracy(predicted_value,expected_value)
 table(expected_value,predicted_value)
 
+#Calcular si tiene o no overfitting
+rmse_union1=rmse(test$`Clase de union`,predicted_value)
 
 
 
@@ -55,6 +60,10 @@ confuisonMatrix
 Accuracy(predicted_value,expected_value)
 table(expected_value,predicted_value)
 
+#Calcular si tiene o no overfitting
+rmse_union2=rmse(test$`Clase de union`,predicted_value)
+
+
 
 #Modelo3 : Variable respuesta es clase de union
 # use NB classifier
@@ -72,6 +81,9 @@ confuisonMatrix
 Accuracy(predicted_value,expected_value)
 table(expected_value,predicted_value)
 
+#Calcular si tiene o no overfitting
+rmse_union3=rmse(test$`Clase de union`,predicted_value)
+
 
 #Modelo 1 : Variable respuesta Escolaridad del hombre y mujer
 #Escolaridad del hombre
@@ -88,6 +100,10 @@ confuisonMatrix <- confusionMatrix(data=predicted_value, reference = expected_va
 confuisonMatrix
 Accuracy(predicted_value,expected_value)
 table(expected_value,predicted_value)
+#Calcular si tiene o no overfitting
+rmse_escolaridadH=rmse(test$`Escolaridad del hombre`,predicted_value)
+
+
 #Escolaridad de la mujer
 NB = naiveBayes(train$`Escolaridad de la mujer` ~.,train,laplace = 3)
 
@@ -102,3 +118,7 @@ confuisonMatrix <- confusionMatrix(data=predicted_value, reference = expected_va
 confuisonMatrix
 Accuracy(predicted_value,expected_value)
 table(expected_value,predicted_value)
+
+rmse_escolaridadMujer=rmse(test$`Escolaridad de la mujer`,predicted_value)
+
+
