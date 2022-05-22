@@ -42,7 +42,7 @@ table(expected_value,predicted_value)
 rmse_union1=rmse(test$`Clase de union`,predicted_value)
 
 
-
+print(rmse_union1)
 
 
 #Modelo2 : Variable respuesta es clase de union
@@ -74,10 +74,10 @@ predicted_value = predict(NB,test)
 expected_value = factor(test$`Clase de union`)
 
 #Creating confusion matrix
-confuisonMatrix <- confusionMatrix(data=predicted_value, reference = expected_value)
+confusionMatrix <- confusionMatrix(data=predicted_value, reference = expected_value)
 
 #Display results 
-confuisonMatrix
+confusionMatrix
 Accuracy(predicted_value,expected_value)
 table(expected_value,predicted_value)
 
@@ -94,10 +94,10 @@ predicted_value = predict(NB,test)
 expected_value = factor(test$`Escolaridad del hombre`)
 
 #Creating confusion matrix
-confuisonMatrix <- confusionMatrix(data=predicted_value, reference = expected_value)
+confusionMatrix <- confusionMatrix(data=predicted_value, reference = expected_value)
 
 #Display results 
-confuisonMatrix
+confusionMatrix
 Accuracy(predicted_value,expected_value)
 table(expected_value,predicted_value)
 #Calcular si tiene o no overfitting
@@ -112,10 +112,10 @@ predicted_value = predict(NB,test)
 expected_value = factor(test$`Escolaridad de la mujer`)
 
 #Creating confusion matrix
-confuisonMatrix <- confusionMatrix(data=predicted_value, reference = expected_value)
+confusionMatrix <- confusionMatrix(data=predicted_value, reference = expected_value)
 
 #Display results 
-confuisonMatrix
+confusionMatrix
 Accuracy(predicted_value,expected_value)
 table(expected_value,predicted_value)
 

@@ -65,9 +65,9 @@ test<-db[-corte,]
 
 ## Situación Problemática: Situación de los matrimonios en la última década en Guatemala.
 
-En cada uno de los modelos realizados se utilizo laplace, en este caso se crearon 3 modelos con la misma variable respuesta pero cada una con diferente transformada de laplace y 2 modelos con otro tipo de variable respuesta para poder ir realizando distintas pruebas.
+En cada uno de los modelos realizados se utilizo laplace, ya que el suavizado con el parametro de laplace nos dice que mientras mayor sea el valor, esto hara que los modelos sean iguales por lo que nos sirve para poder unificar y crear 3 modelos con la misma variable respuesta pero cada una con diferente parametro laplace y 2 modelos con otro tipo de variable respuesta para poder ir realizando distintas pruebas, esto con la finalidad de predecir la clase de union del matrimonio.
 
-Las variables respuesta que utilizamos en estos modelos fueron "Clase de Union" y "Escolaridad de hombre y mujer" ya que al relacionar estas dos variables podemos obtener una prediccion bastante buena para las variables respuesta.
+Si recordamos, el tema principal de esta investigacion era determinar y encontrar una tendencia entre los matrimonios registrados en Guatemala y las variables respuesta principales que utilizamos en estos modelos fueron "Clase de Union" y "Escolaridad de hombre y mujer" ya que al relacionar estas dos variables podemos obtener una prediccion bastante buena para determinar si existe una relacion entre las clases de union de los matrimonios.
 
 
 ## Modelo 1 : Variable respuesta es clase de union
