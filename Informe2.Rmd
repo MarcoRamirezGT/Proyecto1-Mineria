@@ -1,6 +1,6 @@
 ---
-title: "ProyectoP2"
-author: "Marco Ramirez, Alfredo Quezada, Estuardo Hernandez, Eduardo Ramirez"
+title: "Proyecto: Presentacion de resultados"
+author: "Marco Ramirez 19588, Alfredo Quezada, Estuardo Hernandez, Eduardo Ramirez"
 date: "13/5/2022"
 output: html_document
 ---
@@ -16,14 +16,15 @@ library(rpart)
 library(tree)
 library(rpart.plot)
 library(randomForest)
+
 # Read the data into a table from the file
 
 #Prediccion de la variable Clase de union
 db <- readRDS("db10_20.rds")
 
-df<-data[,c("Departamento de registro","Municipio de registro","Escolaridad del hombre","Escolaridad de la mujer","Grupo etnico del hombre","Grupo etnico de la mujer", "Clase de union")]
+df<-db[,c("Departamento de registro","Municipio de registro","Escolaridad del hombre","Escolaridad de la mujer","Grupo etnico del hombre","Grupo etnico de la mujer", "Clase de union")]
 
-ws<-data[,c("Clase de union")]
+ws<-db[,c("Clase de union")]
 ws<- haven::as_factor(ws)
 
 m1<-rpart(ws~ ., data = df, method = "anova")
@@ -63,7 +64,7 @@ train<-db[corte,]
 test<-db[-corte,]
 ```
 
-## Situación Problemática: Situación de los matrimonios en la última década en Guatemala.
+## Naive Bayes
 
 En cada uno de los modelos realizados se utilizo laplace, ya que el suavizado con el parametro de laplace nos dice que mientras mayor sea el valor, esto hara que los modelos sean iguales por lo que nos sirve para poder unificar y crear 3 modelos con la misma variable respuesta pero cada una con diferente parametro laplace y 2 modelos con otro tipo de variable respuesta para poder ir realizando distintas pruebas, esto con la finalidad de predecir la clase de union del matrimonio.
 
@@ -78,36 +79,35 @@ Si recordamos, el tema principal de esta investigacion era determinar y encontra
 NB = naiveBayes(train$`Clase de union` ~.,train,laplace = 0.01)
 
 # Predict with Test Data
-predicted_value = predict(NB,test)
+predicted_value1 = predict(NB,test)
 expected_value = factor(test$`Clase de union`)
 
 #Creating confusion matrix
-confuisonMatrix <- confusionMatrix(data=predicted_value, reference = expected_value)
+confuisonMatrix <- confusionMatrix(data=predicted_value1, reference = expected_value)
 
 #Display results 
 confuisonMatrix
-Accuracy(predicted_value,expected_value)
-table(expected_value,predicted_value)
+Accuracy(predicted_value1,expected_value)
+table(expected_value,predicted_value1)
 
 ```
 
-## Modelo 2 : Variable respuesta es clase de union
 
 ```{r}
 
 NB = naiveBayes(train$`Clase de union` ~.,train)
 
 # Predict with Test Data
-predicted_value = predict(NB,test)
+predicted_value2 = predict(NB,test)
 expected_value = factor(test$`Clase de union`)
 
 #Creating confusion matrix
-confuisonMatrix <- confusionMatrix(data=predicted_value, reference = expected_value)
+confuisonMatrix <- confusionMatrix(data=predicted_value2, reference = expected_value)
 
 #Display results 
 confuisonMatrix
-Accuracy(predicted_value,expected_value)
-table(expected_value,predicted_value)
+Accuracy(predicted_value2,expected_value)
+table(expected_value,predicted_value2)
 
 ```
 
@@ -119,16 +119,16 @@ table(expected_value,predicted_value)
 NB = naiveBayes(train$`Clase de union` ~.,train,laplace = 3)
 
 # Predict with Test Data
-predicted_value = predict(NB,test)
+predicted_value3 = predict(NB,test)
 expected_value = factor(test$`Clase de union`)
 
 #Creating confusion matrix
-confuisonMatrix <- confusionMatrix(data=predicted_value, reference = expected_value)
+confuisonMatrix <- confusionMatrix(data=predicted_value3, reference = expected_value)
 
 #Display results 
 confuisonMatrix
-Accuracy(predicted_value,expected_value)
-table(expected_value,predicted_value)
+Accuracy(predicted_value3,expected_value)
+table(expected_value,predicted_value3)
 
 
 ```
@@ -141,32 +141,50 @@ table(expected_value,predicted_value)
 NB = naiveBayes(train$`Escolaridad del hombre` ~.,train,laplace = 0.01)
 
 # Predict with Test Data
-predicted_value = predict(NB,test)
+predicted_value4 = predict(NB,test)
 expected_value = factor(test$`Escolaridad del hombre`)
 
 #Creating confusion matrix
-confuisonMatrix <- confusionMatrix(data=predicted_value, reference = expected_value)
+confuisonMatrix <- confusionMatrix(data=predicted_value4, reference = expected_value)
 
 #Display results 
 confuisonMatrix
-Accuracy(predicted_value,expected_value)
-table(expected_value,predicted_value)
+Accuracy(predicted_value4,expected_value)
+table(expected_value,predicted_value4)
+```
+
+## Modelo 5 : Variable respuesta Escolaridad del hombre y mujer
+```{r}
 #Escolaridad de la mujer
 NB = naiveBayes(train$`Escolaridad de la mujer` ~.,train,laplace = 3)
 
 # Predict with Test Data
-predicted_value = predict(NB,test)
+predicted_value5 = predict(NB,test)
 expected_value = factor(test$`Escolaridad de la mujer`)
 
 #Creating confusion matrix
-confuisonMatrix <- confusionMatrix(data=predicted_value, reference = expected_value)
+confuisonMatrix <- confusionMatrix(data=predicted_value5, reference = expected_value)
 
 #Display results 
 confuisonMatrix
-Accuracy(predicted_value,expected_value)
-table(expected_value,predicted_value)
+Accuracy(predicted_value5,expected_value)
+table(expected_value,predicted_value5)
 
 ```
-De los diferentes modelos que realizamos el que realizo la mejor prediccion fue el segundo modelo ya que nos dio un 80% de precision, y esto fue porque existen muchos valores de prediccion que se calcularon con laplace en relacion al valor esperado y estos eran iguales. Entre mas valores iguales existan, la prediccion sera mejor.
+RMSE de los modelos para evaluar si tienen overfitting
+```{r message=FALSE, warning=FALSE}
+library(ModelMetrics)
+#Modelo 1
+rmse(test$`Clase de union`,predicted_value1)
+#Modelo 2
+rmse(test$`Clase de union`,predicted_value2)
+#Modelo 3
+rmse(test$`Clase de union`,predicted_value3)
+#Modelo 4
+rmse(test$`Clase de union`,predicted_value4)
+#Modelo 5
+rmse(test$`Clase de union`,predicted_value5)
+```
+De los diferentes modelos que realizamos el que realizo la mejor prediccion fue el primer modelo ya que nos dio un 80% de precision, y esto fue porque existen muchos valores de prediccion que se calcularon con laplace en relacion al valor esperado y estos eran iguales. Entre mas valores iguales existan, la prediccion sera mejor.
 
 En las tablas donde se aplicaron las matrices de confusion tambien podemos observar que la precisión del 80% y podemos observar como ciertos valores no eran los mismos pero fue la que mas valores iguales obstuvo de los 4 modelos.

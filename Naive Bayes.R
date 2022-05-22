@@ -1,4 +1,3 @@
-library(tidyverse)
 library("e1071")
 library(caret)
 library('MLmetrics')
@@ -39,10 +38,8 @@ Accuracy(predicted_value,expected_value)
 table(expected_value,predicted_value)
 
 #Calcular si tiene o no overfitting
+
 rmse_union1=rmse(test$`Clase de union`,predicted_value)
-
-
-print(rmse_union1)
 
 
 #Modelo2 : Variable respuesta es clase de union
