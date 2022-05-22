@@ -167,3 +167,6 @@ Accuracy(predicted_value,expected_value)
 table(expected_value,predicted_value)
 
 ```
+De los diferentes modelos que realizamos el que realizo la mejor prediccion fue el segundo modelo ya que nos dio un 80% de precision, y esto fue porque existen muchos valores de prediccion que se calcularon con laplace en relacion al valor esperado y estos eran iguales. Entre mas valores iguales existan, la prediccion sera mejor.
+
+En las tablas donde se aplicaron las matrices de confusion tambien podemos observar que la precisión del 80% y podemos observar como ciertos valores no eran los mismos pero fue la que mas valores iguales obstuvo de los 4 modelos.
