@@ -6,7 +6,7 @@ library(rpart.plot)
 library(randomForest)
 library("e1071")
 library('MLmetrics')
-library(ModelMetrics)
+
 
 
 data <- readRDS("db10_20.rds")
@@ -33,18 +33,19 @@ table(data$`Clase de union`)
 
 
 predicted_value = predict(m1,test)
-predicted_value <- as.factor(predicted_value)
+
 
 expected_value = factor(test$`Clase de union`)
 
 #Igualar los niveles
-levels(expected_value) <- levels(predicted_value)
+#levels(expected_value) <- levels(predicted_value)
 
 
-confusionMatrix(table(predicted_value, expected_value)) 
-
+confusionMatrix(predicted_value,expected_value)
+Accuracy(predicted_value,expected_value)
 #confusionMatrix <- confusionMatrix(data=predicted_value, reference = expected_value)
 
+# library(ModelMetrics)
 
-rmse_1=rmse(test$`Clase de union`,predicted_value)
-rmse_1
+# rmse_1=rmse(test$`Clase de union`,predicted_value)
+# rmse_1
