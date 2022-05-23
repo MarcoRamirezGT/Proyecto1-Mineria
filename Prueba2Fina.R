@@ -4,6 +4,9 @@ library(caret)
 library(tree)
 library(rpart.plot)
 library(randomForest)
+library("e1071")
+library('MLmetrics')
+library(ModelMetrics)
 
 
 data <- readRDS("db10_20.rds")
@@ -18,26 +21,30 @@ m1<-rpart(ws~ ., data = df, method = "anova")
 rpart.plot(m1, type = 3, digits = 3, fallen.leaves = TRUE )
 
 
-#Precision o matriz
-train<-data
-porciento<-0.7
-
-datos <- train[,c("Municipio de registro","Escolaridad del hombre","Escolaridad de la mujer","Grupo etnico del hombre","Grupo etnico de la mujer", "Clase de union")]
-datosFiltertree <- data[,c("Municipio de registro","Escolaridad del hombre","Escolaridad de la mujer","Grupo etnico del hombre","Grupo etnico de la mujer", "Clase de union")]
-
-
+#Matriz
+porcentaje <- 0.7
 set.seed(123)
-trainRowsNumber <- sample(1:nrow(datosFiltertree),porciento*nrow(datosFiltertree))
-train<-datosFiltertree[trainRowsNumber,]
-test<-datosFiltertree[-trainRowsNumber,]
+corte <- sample(nrow(data),nrow(data)*porcentaje)
 
-modeloRF1<-randomForest(train$`Clase de union`~.,train)
-prediccionRF1<-predict(modeloRF1,newdata = test)
-testCompleto<-test
-testCompleto$predRF<-prediccionRF1
-testCompleto$predRF<-round(testCompleto$predRF)
-cfmRandomForest <- table(testCompleto$predRF, testCompleto$`Clase de union`)
-plot(cfmRandomForest);text(cfmRandomForest)
+#Entrenamiento
+train<-data[corte,]
+test<-data[-corte,]
+table(data$`Clase de union`)
 
-cfmRandomForest <- confusionMatrix(table(testCompleto$predRF, testCompleto$`Clase de union`))
-cfmRandomForest
+
+predicted_value = predict(m1,test)
+predicted_value <- as.factor(predicted_value)
+
+expected_value = factor(test$`Clase de union`)
+
+#Igualar los niveles
+levels(expected_value) <- levels(predicted_value)
+
+
+confusionMatrix(table(predicted_value, expected_value)) 
+
+#confusionMatrix <- confusionMatrix(data=predicted_value, reference = expected_value)
+
+
+rmse_1=rmse(test$`Clase de union`,predicted_value)
+rmse_1
