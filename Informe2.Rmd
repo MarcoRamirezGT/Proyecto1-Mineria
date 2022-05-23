@@ -1,6 +1,6 @@
 ---
 title: "Proyecto: Presentacion de resultados"
-author: "Marco Ramirez 19588, Alfredo Quezada, Estuardo Hernandez, Eduardo Ramirez"
+author: "Marco Ramirez 19588, Alfredo Quezada 191002, Estuardo Hernandez 19202, Eduardo Ramírez 19946"
 date: "13/5/2022"
 output: html_document
 ---
@@ -8,26 +8,36 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
-library(tidyverse)
-library("e1071")
-library(caret)
-library('MLmetrics')
 library(rpart)
+library(caret)
 library(tree)
 library(rpart.plot)
 library(randomForest)
+library("e1071")
+library('MLmetrics')
 
-# Read the data into a table from the file
-
-#Prediccion de la variable Clase de union
 db <- readRDS("db10_20.rds")
 
-df<-db[,c("Departamento de registro","Municipio de registro","Escolaridad del hombre","Escolaridad de la mujer","Grupo etnico del hombre","Grupo etnico de la mujer", "Clase de union")]
+df<-db[,c("Municipio de registro","Escolaridad del hombre","Escolaridad de la mujer","Grupo etnico del hombre","Grupo etnico de la mujer", "Clase de union")]
 
 ws<-db[,c("Clase de union")]
 ws<- haven::as_factor(ws)
 
 m1<-rpart(ws~ ., data = df, method = "anova")
+
+porcentaje <- 0.7
+set.seed(123)
+corte <- sample(nrow(db),nrow(db)*porcentaje)
+
+train<-db[corte,]
+test<-db[-corte,]
+table(db$`Clase de union`)
+
+predicted_value = predict(m1,test)
+expected_value = factor(test$`Clase de union`)
+
+table(expected_value,predicted_value)
+precision<-Accuracy(predicted_value,expected_value)
 
 ```
 
@@ -48,6 +58,14 @@ Este árbol de regresión se creó en base a variables numéricas con la finalid
 Si la clase es menor que 3, pero mayor o igual a dos, determinamos que el 2% de los matrimonios están bajo la clase 2 de "Separación absoluta". Si la clase es mayor o igual a 3 y menor que 6, determinamos que el 87.9% de los matrimonios están bajo la clase 3 de "Comunidad de gananciales". Y por último, si la clase es mayor o igual que 3, pero mayor o igual que 6, determinamos que el 4.5% de los matrimonios están bajo la clase 9 de "No especificado".
 
 Se puede decir que el árbol de regresión fue exitoso, ya que el algoritmo logró hacer clasificaciones a partir de varibales que nosotros consideramos como claves, así mismo fue capaz de separarlas en categorías, también se puede ver que por las mismas clasificaciones de las variables, la prediccion es bastante lógica, porque la clase de unión 3 de "Comunidad de gananciales" es la que más se usa y es la que tiene el porcentaje más alto.
+
+#### Precisión del Árbol de Regresión:
+
+```{r}
+precision
+```
+
+Se observa que la precisión a la hora de realizar la predicción de la variable "Clase de union" es muy buena, teniendo esta un valor aproximado de 0.96.
 
 ```{r}
 #Bayes 
