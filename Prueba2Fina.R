@@ -41,7 +41,7 @@ expected_value = factor(test$`Clase de union`)
 #levels(expected_value) <- levels(predicted_value)
 
 
-confusionMatrix(predicted_value,expected_value)
+confusionMatrix(expected_value,predicted_value)
 Accuracy(predicted_value,expected_value)
 #confusionMatrix <- confusionMatrix(data=predicted_value, reference = expected_value)
 
